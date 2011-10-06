@@ -1,0 +1,1196 @@
+           
+                                                                        
+                        
+                                                                            
+            
+        
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <title>Using plasma experiments to illustrate a complex index of refraction | Browse - American Journal of Physics</title>
+    
+        <link rel="stylesheet" type="text/css" href="/css/commons/jquery.css" />
+    
+    <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
+    <!-- <script type="text/javascript" src="/js/jquery.ui.all.min.js"></script> -->
+    <script type="text/javascript" src="/js/jquery-ui-1.7.2.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.extensions.js"></script>
+
+    <script type="text/javascript" src="/js/scitation.utilities.js"></script>
+    <script type="text/javascript" src="/js/scitation.abstract.js"></script>
+    
+            
+                            <link type="text/css" rel="stylesheet" href="http://ajp.aapt.org.libproxy1.nus.edu.sg/cmlink/7.2531" />
+                                            <link type="text/css" rel="stylesheet" href="http://ajp.aapt.org.libproxy1.nus.edu.sg/cmlink/7.3302" />
+                            <link rel="stylesheet" type="text/css" href="/css/commons/fulltext.css" />
+    <link rel="stylesheet" type="text/css" href="/css/commons/mathstyle.css" />
+    
+            
+       <script type="text/javascript">
+          $(document).ready(function(){  
+            $(".popuplink").click(function() { javascript:window.open($(this).attr('href')); return false; });
+          }); 
+       </script>
+        
+       
+      
+       	   	         
+       <script type="text/javascript" src="/js/fulltext.js"></script>
+       <script type="text/javascript" src="/js/flowplayer-3.1.4.min.js"></script>
+       <script type="text/javascript">
+         
+         var selectedpanel = "";
+         
+         $(function() {
+             $('.boxy').boxy();
+         });
+
+         $(document).ready(function(){  
+
+            /* AQS Listener ************ */
+            $(".aqslistener").click(function (e) {
+                var searchcoden = 'AJPIAS';
+                if (searchcoden == '') searchcoden = searchkey;
+                var articleInfo = $(this).parent().parent().attr("name");
+                AQSlistener($(this).html(),'', searchcoden, e.pageX, e.pageY, articleInfo,'/search');
+            });
+
+            if (navigator.appName=="Microsoft Internet Explorer")
+            {
+                $("#mediacontentpanel").css("background-color","white");
+                $("#mediabrowser_wrap").css("z-index","5005");
+                $(".contentarea").css("height",$(window).height());
+            }
+            
+            /* ENABLING PROGRAM LISTENERS --------------------------------- */ 
+            /* ENABLING PROGRAM LISTENERS --------------------------------- */
+
+            $(".tablabel").hover(
+                function () {
+                    $(this).animate({opacity:1.0},200);
+                  }, 
+                  function () {
+                    $(this).animate({opacity:0.85},200);
+                  }
+            );
+
+            hiConfig = {
+                sensitivity: 3, // number = sensitivity threshold (must be 1 or higher)
+                interval: 100, // number = milliseconds for onMouseOver polling interval
+                timeout: 200, // number = milliseconds delay before onMouseOut
+                over: function() {
+                    var showdom = $(this).attr("alt");
+                    $("#"+showdom).show('fast');
+                }, // function = onMouseOver callback (REQUIRED)
+                out: function() { 
+                    var showdom = $(this).attr("alt");
+                    $("#"+showdom).hide('fast');
+                    } // function = onMouseOut callback (REQUIRED)
+            }
+            $(".dropdownmenu").hoverIntent(hiConfig);
+
+            $(".first_occurence_link a, .firscit").click(
+                function () {
+                    $(".figref,.citeref,.tableref").removeClass("highlightOBJ");
+                    var idtohigh = $(this).attr("href");
+                    $("a[name="+idtohigh.substring(1,idtohigh.length)+"]").addClass("highlightOBJ");
+                }
+            );
+            $(".author_name").click(
+                function (e) { 
+                    return LaunchContentPreview("authorPreviewer", $(this).html(), "", "author", e.pageX, e.pageY, "fixed") 
+                }
+            );
+            $(".institution_name").click(
+                function (e) { 
+                    var parentelement = $(this).parent().get(0);
+                    var instname = $(parentelement).find(".institution_name").html();
+                    return LaunchContentPreview("institutionPreviewer", instname, "", "institution", e.pageX, e.pageY, "fixed") 
+                }
+            );
+            
+            $(".launchMedia").click( function () { return launchMedia(this); });
+            $(".figref").click( function (e) { return LaunchDOMContentPreview($(this).attr("href"), "figure", e.pageX, e.pageY); });
+            $(".citeref").click( function (e) { return LaunchDOMContentPreview($(this).attr("href"), "reference", e.pageX, e.pageY); });
+            $("#contenthandle, #contentarea_tabB a, #contentarea_tabC a, #contentarea_tabD a").click( function() { hideMediaBrowser(); });
+
+            $(".searchabledom").mouseup(function(e){
+                $("#singlePreview").hide();
+                var selection = getSelectioner();
+                var strlength = selection.length;
+                if(selection!="" && strlength > 2 && strlength < 100)
+                    return LaunchQuickSearch(selection, "AJPIAS", "Am. J. Phys.", e.pageX, e.pageY); 
+                else
+                    CloseAllContentBrowsers();
+            });
+            
+            $(".section h1,.section h2").append(" <a href=\"#top\" class=\"backtotop\">top</a>");
+            $("#singlePreview").draggable();
+            
+            launchRelatedArticlesListing(20,"AJPIAS000079000009000894000001",".relatedarticles_listing","");
+            
+            /* ENABLING PROGRAM LISTENERS --------------------------------- */
+            /* ENABLING PROGRAM LISTENERS --------------------------------- */
+ 
+            $("#refsectiontabs").tabs();
+
+            $(".link_shownextprevious").hover(
+                function (e) { 
+                    var prevnextdom = $(this).attr("alt");
+                    $("#prevnext_floater").show();
+                    LaunchArticlePrevNext(prevnextdom, e.pageX, e.pageY);
+                },
+                function() {
+                    $("#prevnext_floater").animate({"opacity":"0.0"},50, function() {
+                        $("#prevnext_floater").hide(); 
+                    });                
+                }
+            );
+
+            $(".articlereferenceslist li a, .edItem_block li a, .articlecitingslist li a").click(function (e) {
+                var cvips = $(this).find("span").html();
+                if (cvips == null) return true; 
+                var previewurl = "http://ajp.aapt.org.libproxy1.nus.edu.sg/cmlink/15.470?cvips=" + cvips + "&absurl=" + escape($(this).attr("href"));
+                LaunchAJAXContentPreview(previewurl, e.pageX, e.pageY);
+                return false; 
+            }); 
+            $(".authorList_entry .deployNote").click(function (e) {
+                return LaunchDOMContentPreview("#affnote_" + $(this).attr("rel"), "footnote", e.pageX, e.pageY);
+            });
+                    
+          $(".boxref, .tableref").click(
+                function () { 
+                    // Grab the id of the node that you would like to copy from the jump
+                    // link href
+                    var id = $(this).attr("href");
+                    
+                    // Rewrite the inner html of the popup box to the html of the text box
+                    $("#fulltextwrapper_content").html($(id).html());
+                    
+                    //  Make it fade in and display
+                    $(".dropmenusection").hide();
+                    $("#darken").fadeIn('slow');
+                    $("#fulltextwrapper").fadeIn('slow');
+                    
+                    return false;
+                }
+            );
+            
+        }); 
+        var leftcontenttype = "";
+        var coinsresolver = "http://ajp.aapt.org.libproxy1.nus.edu.sg/cmlink/15.457"; 
+        var sitealias = "";
+        var searchalias = "/search";
+        var previewurl = "http://ajp.aapt.org.libproxy1.nus.edu.sg/cmlink/15.470";
+        
+    </script>
+      
+           
+     
+          
+
+</head>
+<body>   
+
+
+ 
+         
+     
+                                                                 
+      
+              
+<div id="top"></div> 
+<div id="mainContentWrapper" class="canbestyled">
+
+        <div id="mediabrowser_wrap">
+            <div id="mediacontentpanel">
+                <div id="contenthandle"></div>
+                <a href="#" onclick="return hideMediaBrowser();"><img src="/img/fulltext/closeslider_small.png" alt="Close Slider" style="border:none; position:absolute; top:20px; right:60px;" /></a>
+           	 	<div id="contentarea_tabA" class="contentarea">
+           	 	    <h3>Abstract</h3>
+           	 	     
+      
+								
+								
+						
+								
+				
+						
+						
+				
+						
+								    		    
+		    		    		    		    
+		    		    
+		    
+		    		    		    
+		    		    		    
+		    		    		    
+		    		    		    
+		    		    		    
+		    		    		    
+		    		    		    
+		    		    		    
+		                            
+		    		        		        		    		    
+		    
+		    		    
+		    		    
+		    		        <div class="citationLine">
+		            <p>American Journal of Physics -- September 2011 -- Volume 79, Issue 9, pp. 894</p>
+		        </div>
+		    		
+		
+       
+               	 	     
+							<div class="abstitle">
+		        <h1>
+		        Using plasma experiments to illustrate a complex index of refraction
+		        		        </h1>
+		        		        		        
+		        		    </div>
+				
+	              		 
+				
+				
+	    	    
+
+		    <!-- start tagging and authors -->
+	    <div class="authors_block">
+	        
+        
+                        
+                                    <!-- start tagging and authors -->
+
+                                                
+                                    
+                        			            <div class="authorList" name="coden=AJPIAS&volume=79&issue=9&pg=894&seqno=1">
+                          	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">W. Gekelman</span><sup>1</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">P. Pribyl</span><sup>1</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">J. Wise</span><sup>2</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">A. Lee</span><sup>2</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">R. Hwang</span><sup>3</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">C. Eghtebas</span><sup>4</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                                                  <span class="looklikelink authorname aqslistener">J. Shin</span><sup>5</sup>,                                                                                                     
+                                        	                      	                      
+                                		                    		                    		                    		                    					        					        					        
+      					        					        					        					        
+      					        					        					  
+					                        
+                                            					  
+                                                                                                                                                      					                                                      and                              <span class="looklikelink authorname aqslistener">B. Baker</span><sup>4</sup>                                                                       
+                                                  </div>
+            
+           
+      	        <p class="affiliation">
+	            	                	                			                    <sup>1</sup>Department of Physics and Astronomy, University of California, Los Angeles, California 90095  
+		                    <br/>
+	                    	                	                			                    <sup>2</sup>New Roads School, Santa Monica, California 90404  
+		                    <br/>
+	                    	                	                			                    <sup>3</sup>Buckley School, 3900 Stansbury Ave., Sherman Oaks, California 91423  
+		                    <br/>
+	                    	                	                			                    <sup>4</sup>University High School, Los Angeles, California 90025  
+		                    <br/>
+	                    	                	                			                    <sup>5</sup>Walnut Grove Secondary School, 8919 Walnut Grove Dr., Langly, Canada BC VIM2N7  
+		                    <br/>
+	                    	                	            	        </p>
+	        
+	        	    </div>
+		
+	 <script type="text/javascript">
+     $('.mapMe').click(function() {
+         window.open(jQuery(this).attr('href'),'mapcanvas','height=410,width=720,resizable=yes,toolbar=no,menubar=no,location=no,titlebar=no');
+         return false;
+     });      
+     </script>
+	
+
+
+
+    
+                  	
+              	                                      		
+              		 
+                        			<div class="abstract">
+                                    
+<div class="aip-paragraph">The index of refraction for the propagation of a wave in a plasma depends on the plasma density, background magnetic field, and frequency of the wave. The study of plasma wave propagation is an excellent tool for teaching students the subtleties involved in a complex media rather than in glass or water where the index of refraction is close to a constant. Whistler waves were launched and detected in a plasma physics laboratory at UCLA devoted to involving high school students and teachers. The magnetic field of the wave was measured in space and time and the wavenumbers at a variety of frequencies were determined. The index of refraction predicted by Appleton’s equation was used to reconstruct the two-dimensional phase fronts and compared to the laboratory data with excellent agreement. The experimental techniques are discussed in conjunction with their use as an educational tool.</div>
+
+                                                    <p> &copy;                        
+                                                                                   2011
+                                                                                                        <em>American Association of Physics Teachers</em>
+                                            </p>
+                            </div> 
+		
+		
+	                		
+              		              		              		
+              		 
+				
+						
+						
+				         
+				<div class="PubData">
+			<h2>PUBLICATION DATA</h2>
+		    		    	<div class="pubdata_block issn_block">
+		    		
+		    					    		<h3>ISSN:</h3>
+			    
+			    					    						    						    	       <div class="pubdata_leftalign"><a href="http://catalog.loc.gov.libproxy1.nus.edu.sg/cgi-bin/Pwebrecon.cgi?DB=local&amp;PAGE=First&amp;Search_Arg=0002-9505&amp;Search_Code=STNO">0002-9505</a> (print)&nbsp;&nbsp;</div>
+			    	    			    
+			    					    						    						    			<div class="pubdata_leftalign">1943-2909 (online)</div>
+			    				            		            
+		            			        		            
+		            		            
+		    	</div>	<!-- end pubdata_block issn_block -->
+		    		    		      		    	<div class="pubdata_block publisher_block">
+		    		<h3>Publisher:</h3>
+		    	       <div class="pubdata_leftalign">
+		    	       
+		    	       		    	       		    		   
+		    		                          		    		   
+		    		   		    		   		    		   
+		    		   		    		   		American Association of Physics Teachers
+		    		   		    		   
+		    		   </div>  
+		    	</div><!-- end pudata_block publisher_block -->
+		      		    		</div><!-- end PubData -->
+			
+	              		 
+			<div class="absPermalink">
+				<div class="permalinkText">Permalink</div>
+					<div class="permalinkLinks">
+					   <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341">http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341</a>
+					</div>
+			</div>
+
+              		<br/>    
+        		</div>
+     	
+                                    <div id="contentarea_tabB" class="contentarea"><h3>Outline</h3> <div class="artOutlineList"><ol class="fulltext_outline"><li><a href="#s1">INTRODUCTION</a></li><li><a href="#s2">LAPTAG</a></li><li><a href="#s3">EXPERIMENTAL SETUP</a></li><li><a href="#s4">DATA COLLECTION</a></li><li><a href="#s5">THEORY OF WHISTLER WAVE DISPERSION</a></li><li><a href="#s6">EXPERIMENTAL RESULTS</a></li><li><a href="#s7">COMPARISON OF EXPERIMENT TO THEORY</a></li><li><a href="#s8">WHISTLER WAVE EXPERIMENTS AND LEARNING THE PROCESS OF SCIENCE</a></li><li><a href="#s9">SUMMARY</a></li><li><a href="#ack">Acknowledgments</a></li><li><a href="#fulltext-references">References</a></li></ol></div></div>
+                                
+                                    <div id="contentarea_tabC" class="contentarea"><h3>Figures</h3> <div class="figlist"><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f1?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=1" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 1. </span><graphic highres="yes" lowres="yes" file="1"/><figure-caption><div class="aip-paragraph">LAPTAG experimental device. The cylindrical chamber is 1.5 m long and 0.4 m in diameter. The chamber vacuum (2–3 × 10<sup class="emphsuperior">−6</sup> Torr) is attained using roughing/turbo pumps and then filled using a mass flow controller (MFC) to a working pressure of 1 to 25 mTorr of argon. The axial solenoidal magnetic field is produced by the coils. An inset showing the glowing plasma is on the bottom right.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f1">View first occurrence of Fig. 1 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f2?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=2" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 2. </span><graphic highres="yes" lowres="yes" file="2"/><figure-caption><div class="aip-paragraph">Timing diagram for the experiment. The rf source is pulsed on for 5 ms at 10 Hz, and the whistler waves are launched and detected in the plasma afterglow while the density is still substantial, the plasma is extremely quiescent, and there is no signal noise introduced by the rf source.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f2">View first occurrence of Fig. 2 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f3?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=3" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 3. </span><graphic highres="yes" lowres="yes" file="3"/><figure-caption><div class="aip-paragraph">Schematic diagram of the experimental setup. The whistler wave antenna is driven symmetrically at 60 &lt; <em class="emphitalic">f</em> &lt; 120 MHz with approximately 0.5 W. A pulse generator with four outputs, <em class="emphitalic">A–D</em>, sequences the experiment. A 20 μs pulse from output <em class="emphitalic">C</em> forms the input into a tuned resonator (here shown set to 60 MHz), the leading edge of which results in a wave train at the resonant frequency. The mixer, using a pulse from channel A on the I input, acts as a switch to select a few cycles from this wave train to generate a tone burst of a few cycles. Three to five cycles from the center of the tone burst are selected and then amplified and sent to the phase splitter where the input signal is divided into two output signals shifted 180° out of phase; these are amplified again to symmetrically drive the antenna. A photograph of the antenna is inserted on the bottom right. The antenna diameter is 1.3 cm.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f3">View first occurrence of Fig. 3 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f4?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=4" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 4. </span><graphic highres="yes" lowres="yes" file="4"/><figure-caption><div class="aip-paragraph">Schematic diagram of the three-axis magnetic probe and Langmuir probe. The <em class="emphitalic">z</em>-axis corresponds to the machine axis and is the same as the direction of the background magnetic field. The outer diameter of the magnetic <em class="emphitalic">B</em>-dot probes is 7 mm. The Langmuir probe is a copper disk with a diameter of 5.3 mm.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f4">View first occurrence of Fig. 4 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f5?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=5" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 5. </span><graphic highres="yes" lowres="yes" file="5"/><figure-caption><div class="aip-paragraph">Wavenumbers at a fixed density for cases where the wave frequency is above or below half the electron cyclotron frequency. Note that the group velocity is perpendicular to the line at the point of intersection with <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3652.gif" class="mathImgBottom" alt="math"/></span>.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f5">View first occurrence of Fig. 5 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f6?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=6" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 6. </span><graphic highres="yes" lowres="yes" file="6"/>
+<figpart id="f6a"/><figure-caption><div class="aip-paragraph">The index of refraction calculated from Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span> for densities, magnetic fields, and frequencies typical of the LAPTAG experimental conditions. (a) <em class="emphitalic">n</em> = 2.0 × 10<sup class="emphsuperior">11</sup> cm<sup class="emphsuperior">−3</sup>, <em class="emphitalic">B</em> = 57 G; (b) <span class="formula"><em class="emphitalic">n</em> = 2.0×10<sup class="emphsuperior">11</sup><span class="emphroman">cm</span><sup class="emphsuperior">-3</sup></span>, <em class="emphitalic">f</em><sub class="emphinferior">wave</sub> = 60 MHz; (c) <em class="emphitalic">B</em> = 57 G, <em class="emphitalic">f</em><sub class="emphinferior">wave</sub> = 60 MHz.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f6a">View first occurrence of Fig. 6a in article.</a><br/></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f7?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=7" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 7. </span><graphic highres="yes" lowres="yes" file="7"/><figure-caption><div class="aip-paragraph">Parallel and perpendicular wavenumbers for the three cases analyzed in detail. Note that a <em class="emphitalic">B</em> vector at a given angle is a vector drawn from the origin to a point <span class="formula">(<em class="emphitalic">k</em><sub class="emphinferior">⊥</sub>,<em class="emphitalic">k</em><sub class="emphinferior">∥</sub>)</span> on one of the curves. The <strong class="emphbold"><em class="emphitalic">k</em></strong> vector points in the wave phase velocity direction.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f7">View first occurrence of Fig. 7 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f8?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=8" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 8. </span><graphic highres="yes" lowres="yes" file="8"/><figure-caption><div class="aip-paragraph">Propagation of one component, <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub>, of the whistler wave along the background magnetic field. <em class="emphitalic">T</em> = 280 ns from the start of tone burst, <em class="emphitalic">f</em> = 65 MHz. The wavelength may be read from the graph as <span class="formula"><em class="emphitalic">λ</em></span> = 12 cm, <em class="emphitalic">k</em> = 0.53 cm<sup class="emphsuperior">−1</sup>. Data are acquired for all three components, <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3805.gif" class="mathImgBottom" alt="math"/>(<em class="emphitalic">z</em>,<em class="emphitalic">t</em>)</span> at each of 61 axial locations and 1250 time steps.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f8">View first occurrence of Fig. 8 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f9?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=9" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 9. </span>
+<graphic highres="yes" lowres="yes" file="9"/>
+<figure-caption>
+<div class="aip-paragraph">90 MHz tone burst with <span class="formula"><em class="emphitalic">f</em>/<em class="emphitalic">f</em><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">ce</span></sub><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">ce</span></sub> = 0.56</span>, <span class="formula"><em class="emphitalic">f</em>/<em class="emphitalic">f</em><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">pe</span></sub><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">pe</span></sub> = 0.017</span>. The launch antenna is located at <em class="emphitalic">z</em> = 0. <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub> is given in arbitrary units. By following a wave crest as a function of time, the phase velocity of the wave can be measured.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f9">View first occurrence of Fig. 9 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f10?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=10" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 10. </span><graphic highres="yes" lowres="yes" file="10"/><figure-caption><div class="aip-paragraph">Diagram of the measured vector magnetic field in the <em class="emphitalic">x</em>–<em class="emphitalic">z</em> plane at two times which are ½ period apart; <em class="emphitalic">f</em> = 90 MHz. The arrows on the far side (closest to the antenna) rotate in a counterclockwise direction about <em class="emphitalic">B</em><sub class="emphinferior">0<em class="emphitalic">z</em></sub>. The total rotation is three-dimensional, which can be seen in the accompanying movie (enhanced online) (Ref. <span class="citeref_collection"><a class="citeref" href="#c21" rel="c21" name="citeref_c21">21</a></span>). <span id="mm1" class="media-link-span">[URL: <a class="media-link" href="http://dx.doi.org.libproxy1.nus.edu.sg/10.1119/1.3591341.1">http://dx.doi.org.libproxy1.nus.edu.sg/10.1119/1.3591341.1</a> ]</span></div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f10">View first occurrence of Fig. 10 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f11?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=11" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 11. </span><graphic highres="yes" lowres="yes" file="11"/><figure-caption><div class="aip-paragraph">Theoretical dispersion relation and experimental data for parallel propagation. The uncertainty in <span class="formula"><em class="emphitalic">ω</em></span> comes from the finite length of the tone burst, <span class="formula">Δ<em class="emphitalic">f</em>Δ<em class="emphitalic">T</em> ≈ 1</span>.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f11">View first occurrence of Fig. 11 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f12?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=12" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 12. </span><graphic highres="yes" lowres="yes" file="12"/><figure-caption><div class="aip-paragraph">Wave summation for isotropic wave propagation, such as for light in a vacuum. The sequence of figures illustrates the process of summing up progressively more plane waves propagating outward from a source at the left, with the result being circular phase fronts. The figures are labeled by the number of waves that are summed. For one wave, a single plane wave <span class="formula"><em class="emphitalic">θ</em> = 0</span> comes from the virtual source at the left, and propagates to the right; Two plane waves propagating at <span class="formula"><em class="emphitalic">θ</em> = ±45<sup class="emphsuperior">∘</sup></span>, three waves (equivalent to the sum of one and two waves); five waves (equivalent to the sum of three waves and <span class="formula"><em class="emphitalic">θ</em> = ±90<sup class="emphsuperior">∘</sup></span>); the 10 and 100 wave summations are at equispaced angles. The summation of 100 plane waves results in an approximately circular wavefront propagating outward in all directions from a virtual source.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f12">View first occurrence of Fig. 12 in article.</a></div></div><div class="figure"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f13?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=13" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 13. </span><graphic highres="yes" lowres="yes" file="13"/><figure-caption><div class="aip-paragraph">Measured data (top row) and theoretical comparison (bottom row) of <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub> for whistler waves for the three experimental conditions described in the text. In all cases, the structures shown in the screenshots propagate to the right with no significant modification of their shapes. The pictures were computed by superposing 200 plane waves, each propagating at a different angle and each with the appropriate phase velocity computed from Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span>. The scales in <em class="emphitalic">z</em> (abscissa) and <em class="emphitalic">x</em> (ordinate) are different, and the distances are in centimeters.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f13">View first occurrence of Fig. 13 in article.</a></div></div></div></div>
+                                
+                                
+                <div id="contentarea_tabF" class="contentarea"> 
+                                    
+                
+                           
+                   
+       
+    </div>
+
+				
+								    				<div id="contentarea_tabG" class="contentarea">
+    					    <h3>Multimedia</h3>
+                            <!-- start multimedia items section -->
+                            <ul class="multimediaList">                 
+                                                                    <li><a href="http://link.aip.org.libproxy1.nus.edu.sg/link/mm/doi=10.1119/1.3591341&amp;filename=v1.mov">v1.mov</a> (6.34 MB)</li>                    
+                                                            </ul> 
+                            <!-- end multimedia items section -->
+    				</div>
+								
+				
+        		<div id="contenttabs">
+                    <div class="tablabel" id="tabA" onclick="return launchMediaBrowser(this);"><img src="/img/fulltext/tab3.png" alt="Abstract" /></div>
+                    <div class="tablabel" id="tabB" onclick="return launchMediaBrowser(this);"><img src="/img/fulltext/tab1.png" alt="Outline" /></div>
+                                        <div class="tablabel" id="tabC" onclick="return launchMediaBrowser(this);"><img src="/img/fulltext/tab2.png" alt="Figures" /></div>
+                                                            											<div class="tablabel" id="tabG" onclick="return launchMediaBrowser(this);"><img src="/img/fulltext/tab7.png" alt="Multimedia" /></div>
+					                </div>
+    		</div>
+		</div>
+
+		<div id="singlePreview"><div class="closer" onclick="return CloseAllContentBrowsers()"><img src="/img/fulltext/x-corner.png" alt="Close" /></div><div class="previewbody"></div></div>
+		<div id="prevnext_floater"></div>
+        <div id="fulltext_header">
+             
+         
+                            
+      			<div id="fulltext_journalbranding"></div>
+			<div class="mediaactions">
+	             
+        
+            
+        
+        
+    
+    <script type="text/javascript">
+    // <![CDATA[
+            $(document).ready(function(){
+                $("ul#communitynav").superfish({speed:'fast'});
+                //$(".facebooklink").attr("href", "http://www.facebook.com/share.php?u="+window.location.href+"&t=$esc.url($shortName)");
+            }); 
+            var emailresolver = "http://ajp.aapt.org.libproxy1.nus.edu.sg/cmlink/1.245";
+    // ]]>
+    </script>
+    
+    
+            
+    <div style="display:none;">
+         <form id="addToMySciForm" action="http://scitation.aip.org.libproxy1.nus.edu.sg/myscitation/addToMyArticles-submit.do" method="get" target="_blank" name="addToMySci">
+            <div style="display:none;">
+             <input type="hidden" name="source" value="scitation" />
+             <input type="hidden" name="downloadcitation" value=" Go " />
+             <input type="hidden" name="source" value="scitation" />
+             <input type="hidden" name="fn" value="mysci"/>
+            </div>
+             <div id="adddomtomysci">
+             </div>
+         </form>
+         <form method="post" id="connotea_form" action="http://www.connotea.org/add" target="_blank">
+            <fieldset class="hide">
+            <input type="hidden" name="uri" value="http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341 " />
+            <input type="hidden" name="usertitle" value="Using plasma experiments to illustrate a complex index of refraction" />
+            <input type="hidden" name="description" value="
+The index of refraction for the propagation of a wave in a plasma depends on the plasma density, background magnetic field, and frequency of the wave. The study of plasma wave propagation is an excel..." />
+            </fieldset>          
+          </form>
+          <form method="post" id="bibsonomy_form" action="http://www.bibsonomy.org/ShowBookmarkEntry" target="_blank">    
+            <fieldset class="hide">
+            <input type="hidden" name="url" id="bib_a" value="http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341"  />
+            <input type="hidden" name="description" id="bib_b" value="Using plasma experiments to illustrate a complex index of refraction" />
+            <input type="hidden" name="extended" id="bib_c" value="
+The index of refraction for the propagation of a wave in a plasma depends on the plasma density, background magnetic field, and frequency of the wave. The study of plasma wave propagation is an excel..." />
+            </fieldset>
+          </form>
+         <form method="get" id="citeulike_form" action="http://www.citeulike.org/posturl" target="_blank">
+            <fieldset class="hide">
+            <input type="hidden" name="url" id="cite_a" value="http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341" />
+            <input type="hidden" name="src" value="post_page" />
+            <input type="hidden" name="title" value="Using plasma experiments to illustrate a complex index of refraction" />
+            </fieldset>
+         </form>
+    
+         <form method="get" id="delicious_form" action="http://del.icio.us/post?v=4&amp;noui&amp;jump=close" target="_blank">
+            <fieldset class="hide">
+            <input type="hidden" name="url" id="del_a" value="http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341" />
+            <input type="hidden" name="notes" id="del_b" value="
+The index of refraction for the propagation of a wave in a plasma depends on the plasma density, background magnetic field, and frequency of the wave. The study of plasma wave propagation is an excel..." />
+            <input type="hidden" name="title" id="del_c" value="Using plasma experiments to illustrate a complex index of refraction" />
+            </fieldset>
+          </form>
+    </div>
+    
+        
+                                
+    
+        
+    <div id="linkingactionsdiv">    
+             
+      
+                <div id="fulltext_pdfcartlinks">
+            <a href="http://scitation.aip.org.libproxy1.nus.edu.sg/getpdf/servlet/GetPDFServlet?filetype=pdf&id=AJPIAS000079000009000894000001&idtype=cvips&doi=10.1119/1.3591341&prog=normal">Download PDF</a> 
+                                    | 
+        </div>
+       
+			            <div id="inlinesearchhelp"><p class='inlinesearchtext'><img src='/img/fulltext/linelinesearch-logo.png' alt='Inline Search'/></p><p>Highlight any word or phrase in the body of this article to see additional options to:<ul><li>View all articles containing the word or phrase in the journal you're browsing</li><li>View the Top 5 articles related to the word or phrase you've highlighted</li><li>Note: For performance concerns, this function will only work for less than 100 characters highlighted.</li></ul></p></div>
+            <span style="color:red;font-size:90%; position:relative;top:-1px;">NEW:</span><span class="link_shownextprevious looklinelink" alt="inlinesearchhelp"><img src="/img/fulltext/inlinesearch.png" class="imgmovedown" alt="Print view"></span>
+                   
+                                               
+                                                
+            <a href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79/i9/p894_s1?view=fulltext&display=print" class="popuplink"><img src="/img/fulltext/printview.png" class="imgmovedown" alt="Print view"> Print View</a>
+            <div class="dropdownmenu" alt="toolsblock">
+            <div class="dropmenusection" id="toolsblock">
+                                    <p><a href="#" onclick="return constructArticleDLbox_pol('Download', '$contentid');"><img src="/img/icons/abstract/bicon-dl.gif" alt="Download Citation Icon"> Download Citation</a></p>
+                                
+                                                                
+                               
+               
+                <p><a href="#" onclick="emailErrAlerts('AJPIAS000079000009000894000001', 'Using plasma experiments to illustrate a complex index of re...');" title="Alert me if a correction is posted"><img src="/img/icons/abstract/bicon-errata.gif" alt="Erratum Icon"> Erratum Alert</a></p>
+                <p><a href="/modules/article_tools_formB.jsp?cvips=AJPIAS000079000009000894000001" class="boxy" title="Research Toolkit"><img src="/img/icons/abstract/bicon-tools.gif" alt="Toolkit Icon"> Research Toolkit</a></p>
+                
+                                    <p><a href="/modules/blog_article_formB.jsp?cvips=AJPIAS000079000009000894000001&amp;title=Using+plasma+experiments+to+illustrate+a+complex+index+of+refraction&amp;soc=AAPT&amp;linkurl=http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341&amp;jabv=Am. J. Phys.&amp;vol=79&amp;pnum=894&amp;pyear=2011&amp;pdate=epublish_date" class="boxy" title="Blog This Article"><img src="/img/icons/abstract/bicon-blog.gif" alt="Blog Icon" /> Blog This Article</a></p>
+                                
+                <p><a href="#" onclick="return addSingleArticletoMySci('AJPIAS000079000009000894000001')" title="MySCITATION"><img src="/img/icons/abstract/bicon-mysci.gif" alt="My Scitation Icon"> Add to MyScitation</a></p>
+            </div>
+            <img src="/img/dbt/arttoolsicon.png" alt="Article Tools Icon">Tools
+            </div>
+            
+            <div class="dropdownmenu" alt="shareblock">
+            <div class="dropmenusection" id="shareblock">
+                <p><a href="#" onclick="return emailthisAbstract('AJPIAS000079000009000894000001','article');" title="Email Abstract to a Colleague"><img src="/img/icons/abstract/bicon-email.gif" alt="Email Icon"> Email Abstract</a></p>
+                <p><a href="#" onclick="return submitCommunity('connotea_form');"><img src="/img/icons/connotea.gif" alt="Connotea Icon">&nbsp;&nbsp;Connotea</a></p>
+                <p><a href="#" onclick="return submitCommunity('citeulike_form');"><img src="/img/icons/citeULike.gif" alt="CiteULike Icon">&nbsp;&nbsp;CiteULike</a></p>
+                <p><a href="#" onclick="return submitCommunity('delicious_form');"><img src="/img/icons/delicious.jpg" alt="Delicious Icon">&nbsp;&nbsp;del.icio.us</a></p>
+                <p><a href="#" onclick="return submitCommunity('bibsonomy_form');"><img src="/img/icons/bibsonomy.gif" alt="Bibsonomy Icon">&nbsp;&nbsp;BibSonomy</a></p>
+                <p><a href="http://twitter.com/home?status=Using+plasma+experiments+to+illustrate+a+complex+index+of+refraction%20http://link.aip.org.libproxy1.nus.edu.sg/link/doi/10.1119/1.3591341%20%23physicseducation%20%23plasmadensity%20%23plasmawaves%20%23refractiveindex%20%23whistlers%20"  class="popuplink"><img src="/img/icons/twitter.jpg" alt="tweet this article" /> Tweet this Article</a></p>
+                <p><a href="http://www.facebook.com/share.php?u=http%3A%2F%2Fajp.aapt.org%2Fresource%2F1%2Fajpias%2Fv79%2Fi9%2Fp894_s1&t=Using+plasma+experiments+to+illustrate+a+complex+index+of+refraction" class="popuplink facebooklink"><img src="/img/icons/facebook.jpg" alt="Add to Facebook" />Add to Facebook</a></p>
+            </div>
+            <img src="/img/dbt/bookmarkingicon.png" alt="Social Bookmarking Icon">Share
+            </div>
+            <!-- <a href="help.jsp" onclick="return launchPage('help.jsp');"><img src="/img/fulltext/helpicon.png" class="imgmovedown" alt="Help"> Help</a> -->
+            <a href="#" onclick="return textsize('+');"><img src="/img/fulltext/text_increase.gif" class="imgmovedown" alt="Increase text" /></a>
+            <a href="#" onclick="return textsize('-');"><img src="/img/fulltext/text_decrease.gif" class="imgmovedown" alt="Decrease text" /></a>
+            <a href="#" onclick="return textsize('13');"><img src="/img/fulltext/text_normal.gif" class="imgmovedown" alt="Normalize text" /></a>
+    </div>
+
+
+
+			</div>
+		</div>
+		
+		
+		<div id="ft_wrapper">
+    		<div class="ft_head">
+        		<div class="breadcrumb_prevnext">
+        			              		 
+            
+              
+            
+            <div class="navpath">
+               
+   			                    
+                                                
+								            
+                              
+                                
+                            
+                              
+                                
+                            
+                                                
+                                                <a href="http://ajp.aapt.org.libproxy1.nus.edu.sg/">American Journal of Physics</a>
+                                                       
+                                
+			    												
+					            				
+				
+				                				    					
+										
+						    				<span class="volume_level"><span class="separator">/</span> <a href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79"><span class="vol-prefix">Volume</span> 79</a></span>
+		            		            			
+									     	<span class="issue_level"><span class="separator">/</span> <a href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79/i9"><span class="iss-prefix">Issue</span> 9</a></span>
+										
+	                	                	                    <span class="separator">/</span> <a href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79/i9?&section=papers&page=1">PAPERS</a>
+	                	                	                                                                    <span class="separator">/</span> <a href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79/i9/p894_s1">Back to Abstract</a>
+                
+			</div>   
+
+      
+                    		
+        
+
+        <div class="pagination">
+                                                                                                              <div id="showprevious" style="display:none;"><h3>David Jackson, New Editor of the <em class="emphitalic">American Journal of Physics</em></h3><p></p></div>
+          
+                    <a class="link_shownextprevious" alt="showprevious" href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79/i9/p893_s1?view=fulltext">Previous</a> Article
+                
+                |
+                
+                                                        <div id="shownext" style="display:none;"><h3>Measuring radon concentration in air using a diffusion cloud chamber</h3><p>
+Radon concentration in air is a major concern in lung cancer studies. A traditional technique used to measure radon abundance is the charcoal canister method. We propose a novel technique using a diffusion cloud chamber. This technique is simpler and can easily be used for physics demonstrations for high school and university students.
+</p></div>
+                    <a class="link_shownextprevious" alt="shownext" href="http://ajp.aapt.org.libproxy1.nus.edu.sg/resource/1/ajpias/v79/i9/p903_s1?view=fulltext">Next</a> Article
+          
+            </div>
+
+      
+              		</div>
+                                <div class="fulltext-headmeta">
+                                        
+                                          
+                    
+	                 
+							<div class="abstitle">
+		        <h1>
+		        Using plasma experiments to illustrate a complex index of refraction
+		        		        </h1>
+		        		        		        
+		        		    </div>
+				
+		                 
+                
+            
+      
+      
+                        
+        
+        
+        
+                                                                                                                  
+                                
+        
+            <span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft_id=info:doi/10.1119/1.3591341&amp;rft.issn=19432909&amp;rft.title=American Journal of Physics&amp;rft.atitle=Using plasma experiments to illustrate a complex index of refraction&amp;rft.stitle=Am. J. Phys.&amp;rft.volume=79&amp;rft.issue=9&amp;rft.spage=894&amp;rft.epage=902&amp;rft.coden=AJPIAS"></span>
+
+            
+          
+	                 
+                                               
+                    <script type="text/javascript">
+               $(document).ready(function(){ 
+                    
+                });
+           </script>
+                            
+            <div class="fulltext_authors_block">
+                   
+        
+                                <!-- start tagging and authors -->
+
+                                                <div class="authorList" name="coden=AJPIAS&volume=79&issue=9&pg=894&seqno=1">
+                                                       
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">W. Gekelman</span><sup>1</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">P. Pribyl</span><sup>1</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">J. Wise</span><sup>2</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">A. Lee</span><sup>2</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                                                                                                               <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">R. Hwang</span><sup>3</sup><sup>,</sup><sup class='deployNote looklikelink' rel='a'>a</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">C. Eghtebas</span><sup>4</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                                                      <span class="aqslistener looklikelink">J. Shin</span><sup>5</sup>,                                                                              </div>
+                                                                           
+                                                                                                                                                                                
+                                                                                        
+                                                                                                                                                                                       <div class="authorList_entry">    
+                            and                            <span class="aqslistener looklikelink">B. Baker</span><sup>4</sup>                                                   </div>
+                                            </div>
+            
+           
+                         <p class="affiliation">
+                                                                    		                            <sup>1</sup>	                            Department of Physics and Astronomy, University of California, Los Angeles, California 90095  
+	                            <br/>
+                                                                            		                            <sup>2</sup>	                            New Roads School, Santa Monica, California 90404  
+	                            <br/>
+                                                                            		                            <sup>3</sup>	                            Buckley School, 3900 Stansbury Ave., Sherman Oaks, California 91423  
+	                            <br/>
+                                                                            		                            <sup>4</sup>	                            University High School, Los Angeles, California 90025  
+	                            <br/>
+                                                                            		                            <sup>5</sup>	                            Walnut Grove Secondary School, 8919 Walnut Grove Dr., Langly, Canada BC VIM2N7  
+	                            <br/>
+                                                                                           </p>
+                                                                        <span id="affnote_a" class="authaffnote">
+                            <span class="authfootnote"><sup>a</sup> 
+<p>Present address: Princeton University, Princeton, New Jersey 08544.</p>
+</span>
+                            </span>  
+                                                        </div>
+
+            
+    	                 
+	
+				
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+				
+		
+		
+	
+											    										
+		     
+		   			   		<p class="fulltextHistory">
+		   				   		     
+																	
+						
+																	
+			         			
+						
+		
+		
+									
+						
+						
+						
+						
+						
+						
+						
+								
+		    																			<div class="absHistory">
+							<p class="fulltextHistory">
+																    (Received Jul 2010; accepted Mar 2011)
+														    </p>
+                        </div>
+												
+			
+
+	
+	                </div>    
+             </div>
+    		<div id="ft_content">
+	    		<div id="articlebody" class="searchabledom"> 
+		            
+                      
+                                            <div id="fulltext_body">
+<div class="sectionWrapper"><div class="section" id="s1"><h1>INTRODUCTION</h1>
+
+<div class="aip-paragraph">Whistler waves<span class="citeref_collection"><sup><a class="citeref" href="#c1" rel="c1" name="citeref_c1">1</a></sup></span> are electromagnetic waves that exist only in magnetized plasmas. Whistler waves near Earth are excited by high altitude lightning discharges.<span class="citeref_collection"><sup><a class="citeref" href="#c2" rel="c2" name="citeref_c2">2</a></sup></span> The lightning discharge is an electric impulse that launches an electromagnetic wave, which travels to the Earth-ionosphere waveguide where it interacts with electrons to generate whistler waves. Whistlers are interesting because waves with different frequencies travel at speeds determined by the dispersion relation such that the field-aligned component at higher wave frequencies travels faster along the ambient magnetic field.</div>
+<div class="aip-paragraph">Whistler waves propagating in Earth’s ionospheric plasma have frequencies low enough to be audible by the human ear. Whistlers were first noticed in 1886 on a 22 km telephone line<span class="citeref_collection"><sup><a class="citeref" href="#c3" rel="c3" name="citeref_c3">3</a></sup></span> without amplification, but little was said or known about them. The first known report of a phenomenon resembling whistlers was published in 1894 by Preece,<span class="citeref_collection"><sup><a class="citeref" href="#c4" rel="c4" name="citeref_c4">4</a></sup></span> the engineer-in-chief of a British telegraph company. The “whistles” were observed during a display of an aurora borealis at a British post office through telephone receivers connected to telegraphs. In 1919, another observation of whistlers was reported by Barkhausen,<span class="citeref_collection"><sup><a class="citeref" href="#c5" rel="c5" name="citeref_c5">5</a></sup></span> who discussed conversations between soldiers in which they believed that gliding whistles heard during telephone communications were due to falling grenades. In 1925, the theoretical physicist and engineer Eckersley described disturbances that varied in duration and tone.<span class="citeref_collection"><sup><a class="citeref" href="#c6" rel="c6" name="citeref_c6">6</a></sup></span> These disturbances were noticed when an audio recording system was connected to a large antenna. The noise began just above the highest audible frequencies and quickly decreased in pitch ending in a virtually constant low note. He attributed these disturbances to the dispersion of an electrical impulse.</div>
+<div class="aip-paragraph">The index of refraction of whistler waves is described for a cold plasma by the Appleton–Hartree<span class="citeref_collection"><sup><a class="citeref" href="#c7" rel="c7" name="citeref_c7">7</a></sup></span> equation. The index of refraction depends on the local plasma density, the magnetic field, and the angle of wave propagation with respect to the magnetic field. Laboratory experiments that verify the wave propagation have been done in the linear<span class="citeref_collection"><sup><a class="citeref" href="#c8" rel="c8" name="citeref_c8">8</a></sup></span> and non-linear regimes.<span class="citeref_collection"><sup><a class="citeref" href="#c9" rel="c9" name="citeref_c9">9</a></sup></span> The complex index of refraction allows for the group and phase velocities of the wave to be different and explains the dispersion observed in the early observations. These waves are still of interest because of their importance in auroral physics of the Earth and other planets.</div>
+<div class="aip-paragraph">This paper is not an original study of whistler waves. Rather, it is an exploitation of the complex index of refraction to illustrate the intricacies of wave propagation. The waves were launched and detected in a small laboratory device dedicated to educational outreach at UCLA. We describe how the waves were launched and observed and used as an educational tool.</div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s2"><h1>LAPTAG</h1>
+
+<div class="aip-paragraph">The Los Angeles Physics Teachers Alliance Group (LAPTAG) Plasma Lab has met regularly at UCLA for the past 9 years. Over the years Laptag high school students have been involved in the construction of probes, amplifiers, antennae, machine shop fabrication, printed circuit etching and design, experimental design, and scientific programming for the analysis of data. LAPTAG is a voluntary effort of faculty and staff at UCLA, high school teachers, and high school students. Several junior college and college students have also attended. All students are welcome. There are no entrance or exit exams, certificates of completion, or course credit. The students involved are interested in science and are a 
+self-selected group. Incoming students find out about LAPTAG from their high school science teacher, the LAPTAG website,<span class="citeref_collection"><sup><a class="citeref" href="#c10" rel="c10" name="citeref_c10">10</a></sup></span> or word of mouth.</div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s3"><h1>EXPERIMENTAL SETUP</h1>
+
+<div class="aip-paragraph">The LAPTAG plasma device used to conduct the whistler experiment was built by LAPTAG students and their faculty advisors. The device consists of a plasma source and a vacuum vessel in which the experiments are conducted, as shown in Fig. <span class="figref_collection"><a class="figref" href="#f1" rel="f1" name="figref_f1">1</a></span>.</div>
+<div class="figure" id="f1"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f1?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=1" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 1. </span><graphic highres="yes" lowres="yes" file="1"/><figure-caption><div class="aip-paragraph">LAPTAG experimental device. The cylindrical chamber is 1.5 m long and 0.4 m in diameter. The chamber vacuum (2–3 × 10<sup class="emphsuperior">−6</sup> Torr) is attained using roughing/turbo pumps and then filled using a mass flow controller (MFC) to a working pressure of 1 to 25 mTorr of argon. The axial solenoidal magnetic field is produced by the coils. An inset showing the glowing plasma is on the bottom right.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f1">View first occurrence of Fig. 1 in article.</a></div></div>
+<div class="aip-paragraph">The plasma is created by an inductively coupled rf source<span class="citeref_collection"><sup><a class="citeref" href="#c11" rel="c11" name="citeref_c11">11</a></sup></span> operating at up to 1 kW with Argon or Helium as the working gas. The source is pulsed with a repetition rate of 5–50 Hz with the plasma on time of <span class="formula"><em class="emphitalic">τ</em><sub class="emphinferior"><span class="emphroman">on</span></sub> = 4-10<span class="emphroman">ms</span></span>, and operating at a radio frequency (rf) of 400 kHz. The field coils surrounding the chamber make an axial magnetic field (20 &lt; <em class="emphitalic">B</em><sub class="emphinferior">0<em class="emphitalic">z</em></sub> &lt; 120 G). (<em class="emphitalic">B</em><sub class="emphinferior">0<em class="emphitalic">z</em></sub> is the constant background magnetic field in the <em class="emphitalic">z</em> direction.) The experiments have a very repeatable afterglow period, that is, the time after the rf source is switched off. This pulsed source enables experiments to be performed in this quiescent plasma (<span class="formula"><em class="emphitalic">δ</em><em class="emphitalic">n</em>/<em class="emphitalic">n</em>,<em class="emphitalic">δ</em><em class="emphitalic">T</em>/<em class="emphitalic">T</em>&lt;1%</span>). The plasma density is <span class="formula">10<sup class="emphsuperior">8</sup> ≤ <em class="emphitalic">n</em> ≤ 10<sup class="emphsuperior">12</sup><span class="emphroman">cm</span><sup class="emphsuperior">-3</sup></span>, and the electron temperature <em class="emphitalic">T</em> is 3 eV during the rf discharge and rapidly decays to 0.4 eV in the afterglow. The argon ions are cold, with energies less than 0.2 eV. Under typical conditions, the electron gyroradius is 0.2 mm, the ion gyroradius is 5 cm, and the Debye length is 15 μm.</div>
+<div class="aip-paragraph">The whistler experiment takes place on a microsecond time scale, typically 0.1–1 ms after the start of the plasma afterglow period. The density is approximately constant during the whistler measurements, which last less than one half a microsecond. The timing of the experiment is shown in Fig. <span class="figref_collection"><a class="figref" href="#f2" rel="f2" name="figref_f2">2</a></span>. In this case, the experiment is repeated at 10 Hz, which allows for efficient signal averaging at each position at which the data are acquired. The timing is highly reproducible, and the time in the afterglow during which the experiment is carried out as well as the wave tone burst, that is, a phase locked burst of a fixed number of cycles, is the same from shot to shot.</div>
+<div class="figure" id="f2"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f2?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=2" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 2. </span><graphic highres="yes" lowres="yes" file="2"/><figure-caption><div class="aip-paragraph">Timing diagram for the experiment. The rf source is pulsed on for 5 ms at 10 Hz, and the whistler waves are launched and detected in the plasma afterglow while the density is still substantial, the plasma is extremely quiescent, and there is no signal noise introduced by the rf source.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f2">View first occurrence of Fig. 2 in article.</a></div></div>
+<div class="aip-paragraph">The whistler wave is produced using a single turn magnetic loop as a launcher. The experimental setup is shown schematically in Fig. <span class="figref_collection"><a class="figref" href="#f3" rel="f3" name="figref_f3">3</a></span>. A narrow pulse (<span class="formula"><em class="emphitalic">V</em><sub class="emphinferior"><span class="emphroman">pp</span></sub> = 0.5<span class="emphroman">V</span>,<em class="emphitalic">δ</em><em class="emphitalic">t</em> = 0.1<em class="emphitalic">μ</em><span class="emphroman">s</span></span>, where the subscript “pp” means peak to peak and <span class="formula"><em class="emphitalic">δ</em><em class="emphitalic">t</em></span> is the pulse length in microseconds, is fed to a narrow band tunable filter (tuned to 60 MHz). The filter output is sinusoidal and rings for approximately 20–40 periods at the resonant frequency. The filter output is sent through a mixer that acts as a switch to extract a short tone burst <span class="formula"><em class="emphitalic">δ</em><em class="emphitalic">t</em><sub class="emphinferior"><span class="emphroman">burst</span></sub> = 5</span> periods. The tone burst is amplified and symmetrically fed into a single turn magnetic loop consisting of a coaxial wire with a solid outer shield, bent into a loop of 1.5 cm diameter, as diagrammed in Fig. <span class="figref_collection"><a class="figref" href="#f3" rel="f3" name="figref_f3">3</a></span>. Two signals 180° out of phase are applied to the coaxial center conductors, outside the vacuum system. In the center of the loop, a section of the shield of the coaxial cable is removed to make a small gap (&lt;2 mm), allowing the changing magnetic flux in the cable to escape.</div>
+<div class="figure" id="f3"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f3?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=3" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 3. </span><graphic highres="yes" lowres="yes" file="3"/><figure-caption><div class="aip-paragraph">Schematic diagram of the experimental setup. The whistler wave antenna is driven symmetrically at 60 &lt; <em class="emphitalic">f</em> &lt; 120 MHz with approximately 0.5 W. A pulse generator with four outputs, <em class="emphitalic">A–D</em>, sequences the experiment. A 20 μs pulse from output <em class="emphitalic">C</em> forms the input into a tuned resonator (here shown set to 60 MHz), the leading edge of which results in a wave train at the resonant frequency. The mixer, using a pulse from channel A on the I input, acts as a switch to select a few cycles from this wave train to generate a tone burst of a few cycles. Three to five cycles from the center of the tone burst are selected and then amplified and sent to the phase splitter where the input signal is divided into two output signals shifted 180° out of phase; these are amplified again to symmetrically drive the antenna. A photograph of the antenna is inserted on the bottom right. The antenna diameter is 1.3 cm.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f3">View first occurrence of Fig. 3 in article.</a></div></div>
+<div class="aip-paragraph">The changing magnetic field produced by the antenna is at right angles to the background magnetic field, and the resulting plasma response is a whistler wave. The whistler wave has three spatially and temporally varying magnetic field components (as well as three electric field components), even though the launching antenna couples primarily to only one of them (<em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em>-wave</sub>). The launcher behaves approximately as a point source for the wave because its diameter is a small fraction of the parallel wavelength.</div>
+<div class="aip-paragraph">The whistler detector (see Fig. <span class="figref_collection"><a class="figref" href="#f4" rel="f4" name="figref_f4">4</a></span>) is a three-axis magnetic pickup probe. Each axis has a single loop of coaxial wire with a gap (as in the exciter antenna) to allow sensitivity to a changing magnetic field within the loop. By Faraday’s law, the electric field at the end of the loop is <span class="formula"><em class="emphitalic">E</em> = -<em class="emphitalic">d</em><em class="emphitalic">φ</em>/<span class="emphitalic">dt</span></span>, <span class="formula"><em class="emphitalic">φ</em> = <span class="emphitalic">BA</span></span>, where φ is the magnetic flux threading the loop and <em class="emphitalic">A</em> is the area of the loop (see Fig. <span class="figref_collection"><a class="figref" href="#f5" rel="f5" name="figref_f5">5</a></span>). The probe is mounted on a stainless steel shaft, which passes through a double O-ring seal to allow motion along <em class="emphitalic">B</em><sub class="emphinferior">0<em class="emphitalic">z</em></sub> as well as transverse rotation while maintaining vacuum. A Langmuir probe is also mounted in close proximity to the three magnetic pickups.</div>
+<div class="figure" id="f4"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f4?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=4" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 4. </span><graphic highres="yes" lowres="yes" file="4"/><figure-caption><div class="aip-paragraph">Schematic diagram of the three-axis magnetic probe and Langmuir probe. The <em class="emphitalic">z</em>-axis corresponds to the machine axis and is the same as the direction of the background magnetic field. The outer diameter of the magnetic <em class="emphitalic">B</em>-dot probes is 7 mm. The Langmuir probe is a copper disk with a diameter of 5.3 mm.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f4">View first occurrence of Fig. 4 in article.</a></div></div><div class="figure" id="f5"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f5?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=5" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 5. </span><graphic highres="yes" lowres="yes" file="5"/><figure-caption><div class="aip-paragraph">Wavenumbers at a fixed density for cases where the wave frequency is above or below half the electron cyclotron frequency. Note that the group velocity is perpendicular to the line at the point of intersection with <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3652.gif" class="mathImgBottom" alt="math"/></span>.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f5">View first occurrence of Fig. 5 in article.</a></div></div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s4"><h1>DATA COLLECTION</h1>
+
+<div class="aip-paragraph">The probe shaft goes through a sliding seal located on the end of the chamber opposite to the plasma source. The shaft penetrates the chamber well off-center from the plasma, and the probe assembly is mounted on an L-shaped ceramic holder so that the probes pass through the center of the plasma. There are two stepping motors that move the probe shaft. The first is in the axial (<em class="emphitalic">z</em>) direction, which is parallel to the magnetic field, and the second rotates it about <em class="emphitalic">z</em>. The rotation sweeps the <em class="emphitalic">B</em>-dot/Langmuir probes across an arc that approximates a transverse section of the plasma. The data are collected over two spatial dimensions using the computer controlled probe drive. A 2.5 Gs/s (bandwidth equal to 440 MHz) digital oscilloscope is used to acquire the data at each spatial location. A <span class="emphsmallcaps">labview</span>™ program controls the probe drive and the digital oscilloscope.</div>
+<div class="aip-paragraph">Three components of the wave’s magnetic field and the plasma density are collected at each position. The data are collected in 1 cm intervals along the <em class="emphitalic">z</em>-axis, and the <em class="emphitalic">x</em>-axis position is determined by taking the sine of the angle that the probe is rotated, and multiplying it by the length of the arm from the shaft of the probe. For this series of runs, data are collected over an axial distance of 60 cm and a transverse (<em class="emphitalic">x</em>) position varying over −8.6 to 8.6 cm from the center.</div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s5"><h1>THEORY OF WHISTLER WAVE DISPERSION</h1>
+
+<div class="aip-paragraph">The index of refraction μ is the ratio of the speed of light to the speed of the propagating whistler wave, <span class="formula"><em class="emphitalic">μ</em> = <span class="emphitalic">kc</span>/<em class="emphitalic">ω</em></span>. For light in vacuum, or a simple medium such as glass, the index of refraction is a constant independent of the direction of propagation. In contrast, the index of refraction for waves in plasmas is usually complicated, and that for whistler waves is no exception. For whistler waves, μ depends on the plasma density <em class="emphitalic">n</em> (or the equivalently electron plasma frequency <em class="emphitalic">f</em><sub class="emphinferior">pe</sub>), the background magnetic field <em class="emphitalic">B</em> (or equivalently the electron cyclotron frequency <em class="emphitalic">f</em><sub class="emphinferior">ce</sub>), the whistler wave frequency <em class="emphitalic">f</em>, and the angle θ of the wave propagation with respect to the background magnetic field. The wave is also damped by collisions between electrons and neutral gas atoms, which can be modeled by a simple collision frequency <span class="formula"><em class="emphitalic">ν</em><sub class="emphinferior"><span class="emphroman">en</span></sub></span>. The index of refraction μ in terms of these parameters is given by Appleton’s equation<span class="citeref_collection"><sup><a class="citeref" href="#c12" rel="c12" name="citeref_c12">12</a></sup></span><a id="d1" class="dformula_anchor"> </a><div class="dformula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e656.gif" class="mathImgBottom" alt="math"/></div>
+where <span class="formula"><em class="emphitalic">X</em> ≡ <em class="emphitalic">f</em><span class="emphinferior"><strong class="emphbold">pe</strong></span><span class="emphsuperior">2</span>/<em class="emphitalic">f</em><sup class="emphsuperior">2</sup></span>, <span class="formula"><em class="emphitalic">Y</em> ≡ <em class="emphitalic">f</em><sub class="emphinferior"><strong class="emphbold">ce</strong></sub>/<em class="emphitalic">f</em></span>, <span class="formula"><em class="emphitalic">Y</em><sub class="emphinferior"><em class="emphitalic">T</em></sub> = <em class="emphitalic">Y</em>sin<em class="emphitalic">θ</em></span>, <span class="formula"><em class="emphitalic">Y</em><sub class="emphinferior"><em class="emphitalic">L</em></sub> = <em class="emphitalic">Y</em>cos<em class="emphitalic">θ</em></span>, θ is the angle between <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1383.gif" class="mathImgBottom" alt="math"/></span> and <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e896.gif" class="mathImgBottom" alt="math"/><sub class="emphinferior">0<em class="emphitalic">z</em></sub></span>, where <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3652.gif" class="mathImgBottom" alt="math"/></span> is the wavenumber, <span class="formula">|<img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3652.gif" class="mathImgBottom" alt="math"/>| = <em class="emphitalic">k</em> ≡ 2<em class="emphitalic">π</em>/<em class="emphitalic">λ</em></span>, and the direction of <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e951.gif" class="mathImgBottom" alt="math"/> = <img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3652.gif" class="mathImgBottom" alt="math"/>/<em class="emphitalic">k</em></span> is along the propagation of the wave phase fronts, and <span class="formula"><em class="emphitalic">Z</em> ≡ <em class="emphitalic">ν</em><sub class="emphinferior"><strong class="emphbold">en</strong></sub>/<em class="emphitalic">ν</em><sub class="emphinferior"><span class="emphroman">en</span></sub>2<em class="emphitalic">π</em><em class="emphitalic">f</em>2<em class="emphitalic">π</em><em class="emphitalic">f</em></span>. In our case <span class="formula"><em class="emphitalic">f</em><sub class="emphinferior"><strong class="emphbold">pe</strong></sub> = <img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1019.gif" class="mathImgMiddle" alt="math"/> ≈ 8.98×10<sup class="emphsuperior">3</sup><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1083.gif" class="mathImgMiddle" alt="math"/></span>, where the plasma density <em class="emphitalic">n</em> is given in cm<sup class="emphsuperior">−3</sup>, <span class="formula"><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">ce</span></sub> = 2.8×10<sup class="emphsuperior">6</sup><em class="emphitalic">B</em>(<span class="emphroman">Gauss</span>)</span>, and <em class="emphitalic">Z</em> is the ratio of the electron neutral collision frequency, which causes damping of the drive frequency to <em class="emphitalic">f</em><sub class="emphinferior">wave</sub> of the wave. The angle between the wave propagation direction, parallel to <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1143.gif" class="mathImgBottom" alt="math"/></span> and the magnetic field, is θ. In this experiment, typical frequencies were 32 MHz <span class="formula"> ≤ <em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">wave</span></sub> ≤ 90<span class="emphroman">MHz</span></span>, 2.0 GHz <span class="formula"> ≤ <em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">pe</span></sub> ≤ 7.2<span class="emphroman">GHz</span></span>, 112 MHz <span class="formula"> ≤ <em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">ce</span></sub> ≤ 280<span class="emphroman">MHz</span></span>, and <span class="formula">0.001 ≤ <em class="emphitalic">ν</em><sub class="emphinferior"><span class="emphroman">en</span></sub>/<em class="emphitalic">ν</em><sub class="emphinferior"><span class="emphroman">en</span></sub><em class="emphitalic">ω</em><sub class="emphinferior"><span class="emphroman">wave</span></sub> ≤ 0.01<em class="emphitalic">ω</em><sub class="emphinferior"><span class="emphroman">wave</span></sub> ≤ 0.01</span>.</div>
+<div class="aip-paragraph">Appleton’s equation is based on several assumptions: The ions are cold and form a motionless background. This assumption is a good approximation in our experiment because the ions move only about 1 mm during the time of 500 ns. The electrons are cold, which is also a good assumption because at the time the experiment is performed the electron temperature is about 0.5 eV or less. It is also assumed that the waves are linear and the solution to the wave equation can be Fourier analyzed. (The more advanced students in the group have learned what each of these assumptions means.)</div>
+<div class="aip-paragraph">In this study, we used whistler waves to learn about the index of refraction. For example, the whistler phase and group velocities, unlike those of light, can be different. The phase velocity is that of a crest moving within a whistler wave packet of several cycles. The group velocity is that of the wave packet itself. These velocities are defined as
+<a id="d2" class="dformula_anchor"> </a><div class="dformula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1278.gif" class="mathImgBottom" alt="math"/></div>
+The phase and group velocities differ in both magnitude and direction for a given frequency. This difference makes the study of the index of refraction for whistlers highly motivating to students and gives them opportunities to apply higher levels of mathematics, data analysis, and reporting. Figure <span class="figref_collection"><a class="figref" href="#f5" rel="f5" name="figref_f5">5</a></span> illustrates the relation between the group and phase velocity.</div>
+<div class="aip-paragraph">The line in Fig. <span class="figref_collection"><a class="figref" href="#f5" rel="f5" name="figref_f5">5</a></span> is the solution to Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span> for a given field, density, and ω, for the case in which there are no collisions (<em class="emphitalic">Z</em> = 0). For a fixed frequency, a large range of wavenumbers is possible. The wave does not exist above the electron cyclotron frequency. The <em class="emphitalic">k</em> vector is a line from the origin to a point on the curve <span class="formula">(<em class="emphitalic">k</em><sub class="emphinferior">⊥</sub>,<em class="emphitalic">k</em><sub class="emphinferior">∥</sub>)</span>. The group velocity vector is perpendicular to the tangent to the curve at the point of intersection with <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1383.gif" class="mathImgBottom" alt="math"/></span>. If a single frequency wave is launched from a point source, the spatial pattern of the wave is a superposition of waves with all allowable <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1383.gif" class="mathImgBottom" alt="math"/></span> vectors.</div>
+<div class="aip-paragraph">The predicted behavior of the index of refraction as a function of propagation angle for typical LAPTAG plasma parameters is shown in Fig. <span class="figref_collection"><a class="figref" href="#f6" rel="f6" name="figref_f6">6</a></span>. Consider the index of refraction for a wave at 30 MHz [see Fig. <span class="figref_collection"><a class="figref" href="#f6a" rel="f6a" name="figref_f6a">6a</a></span>]. It becomes large for angles <span class="formula"><em class="emphitalic">θ</em>&gt;40<sup class="emphsuperior">∘</sup></span>, and therefore the wave does not propagate because <span class="formula"><em class="emphitalic">k</em> = 2<em class="emphitalic">π</em>/2<em class="emphitalic">π</em><em class="emphitalic">λ</em><em class="emphitalic">λ</em>→∞</span> implies that the wavelength goes to 0. For waves in a plasma, if the wavelength approaches the electron cyclotron radius, the wave becomes heavily damped. At a given frequency, density, and magnetic field, the whistlers propagate at all angles inside a cone,<span class="citeref_collection"><sup><a class="citeref" href="#c13" rel="c13" name="citeref_c13">13</a></sup></span> the axis of which is aligned along the magnetic field. Figure <span class="figref_collection"><a class="figref" href="#f7" rel="f7" name="figref_f7">7</a></span> is a plot of the wavenumbers (see Fig. <span class="figref_collection"><a class="figref" href="#f5" rel="f5" name="figref_f5">5</a></span>) for the experimental conditions described in Sec. <span class="secref_collection"><a class="secref" href="#s4" rel="s4" name="secref_s4">4</a></span>.</div>
+<div class="figure" id="f6"><a class="figpart_anchor" id="f6a"> </a><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f6?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=6" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 6. </span><graphic highres="yes" lowres="yes" file="6"/>
+<figpart id="f6a"/><figure-caption><div class="aip-paragraph">The index of refraction calculated from Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span> for densities, magnetic fields, and frequencies typical of the LAPTAG experimental conditions. (a) <em class="emphitalic">n</em> = 2.0 × 10<sup class="emphsuperior">11</sup> cm<sup class="emphsuperior">−3</sup>, <em class="emphitalic">B</em> = 57 G; (b) <span class="formula"><em class="emphitalic">n</em> = 2.0×10<sup class="emphsuperior">11</sup><span class="emphroman">cm</span><sup class="emphsuperior">-3</sup></span>, <em class="emphitalic">f</em><sub class="emphinferior">wave</sub> = 60 MHz; (c) <em class="emphitalic">B</em> = 57 G, <em class="emphitalic">f</em><sub class="emphinferior">wave</sub> = 60 MHz.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f6a">View first occurrence of Fig. 6a in article.</a><br/></div></div><div class="figure" id="f7"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f7?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=7" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 7. </span><graphic highres="yes" lowres="yes" file="7"/><figure-caption><div class="aip-paragraph">Parallel and perpendicular wavenumbers for the three cases analyzed in detail. Note that a <em class="emphitalic">B</em> vector at a given angle is a vector drawn from the origin to a point <span class="formula">(<em class="emphitalic">k</em><sub class="emphinferior">⊥</sub>,<em class="emphitalic">k</em><sub class="emphinferior">∥</sub>)</span> on one of the curves. The <strong class="emphbold"><em class="emphitalic">k</em></strong> vector points in the wave phase velocity direction.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f7">View first occurrence of Fig. 7 in article.</a></div></div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s6"><h1>EXPERIMENTAL RESULTS</h1>
+
+<div class="aip-paragraph">The data are best understood in stages. We present in Fig. 
+<span class="figref_collection"><a class="figref" href="#f8" rel="f8" name="figref_f8">8</a></span> the wave propagation along the background magnetic field. The antenna is placed in the center of the plasma, <span class="formula"><em class="emphitalic">x</em> = <em class="emphitalic">y</em> = <em class="emphitalic">z</em> = 0</span> (for all cases), and the three-axis magnetic field probe is moved along the direction of the background, constant magnetic field <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1498.gif" class="mathImgBottom" alt="math"/> = <em class="emphitalic">B</em><sub class="emphinferior">0<em class="emphitalic">z</em></sub></span>
+. Time is defined with respect to the launch of the whistler wave burst. In Fig. <span class="figref_collection"><a class="figref" href="#f8" rel="f8" name="figref_f8">8</a></span>, one component of the magnetic field is shown, <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub>(<em class="emphitalic">z</em>, <em class="emphitalic">t</em> = 280 ns), and therefore the distance between crests of the wave is the wavelength <span class="formula"><em class="emphitalic">λ</em><sub class="emphinferior"><em class="emphitalic">p</em></sub> = 12<span class="emphroman">cm</span></span>.</div>
+<div class="figure" id="f8"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f8?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=8" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 8. </span><graphic highres="yes" lowres="yes" file="8"/><figure-caption><div class="aip-paragraph">Propagation of one component, <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub>, of the whistler wave along the background magnetic field. <em class="emphitalic">T</em> = 280 ns from the start of tone burst, <em class="emphitalic">f</em> = 65 MHz. The wavelength may be read from the graph as <span class="formula"><em class="emphitalic">λ</em></span> = 12 cm, <em class="emphitalic">k</em> = 0.53 cm<sup class="emphsuperior">−1</sup>. Data are acquired for all three components, <span class="formula"><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e3805.gif" class="mathImgBottom" alt="math"/>(<em class="emphitalic">z</em>,<em class="emphitalic">t</em>)</span> at each of 61 axial locations and 1250 time steps.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f8">View first occurrence of Fig. 8 in article.</a></div></div>
+<div class="aip-paragraph">The wavefronts of one component of the field can be plotted at a fixed time and in space as a surface plot. Figure <span class="figref_collection"><a class="figref" href="#f9" rel="f9" name="figref_f9">9</a></span> shows <span class="formula"><em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub>(<em class="emphitalic">x</em>,<em class="emphitalic">z</em>)</span> at three times. As in the space-time diagram of Fig. <span class="figref_collection"><a class="figref" href="#f8" rel="f8" name="figref_f8">8</a></span>, the wave crests can be followed to determine the wave phase velocity. The data in Fig. <span class="figref_collection"><a class="figref" href="#f9" rel="f9" name="figref_f9">9</a></span> were acquired for a different frequency tone burst and different background field from that in Fig. <span class="figref_collection"><a class="figref" href="#f8" rel="f8" name="figref_f8">8</a></span>, and therefore the phase velocity is different. The three orthogonal magnetic probes record a signal proportional to <span class="formula"><em class="emphitalic">d</em><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1498.gif" class="mathImgBottom" alt="math"/>/<span class="emphitalic">dt</span></span>, and because the wave is at a fixed frequency, the probe signals are also proportional to <span class="formula"><em class="emphitalic">ω</em><img src="/math_images/AJPIAS/vol_79/iss_9/894_1/894_1-ft-d4e1498.gif" class="mathImgBottom" alt="math"/></span>. The time history of all three components of the field is known at every spatial location on the data plane and the full vector field can be displayed as in Fig. <span class="figref_collection"><a class="figref" href="#f10" rel="f10" name="figref_f10">10</a></span>. The vector field is shown at two times one half cycle apart. When viewed as a function of time, the vectors at the rear rotate counterclockwise, the same direction as the electron gyro motion. Whistlers are electron waves. The full three-dimensional motion, which is better appreciated in a movie (online animation of Fig. <span class="figref_collection"><a class="figref" href="#f10" rel="f10" name="figref_f10">10</a></span> with Δ<em class="emphitalic">t</em> = 0.40 ns), reveals more complicated rotation with components about the <em class="emphitalic">x</em> and <em class="emphitalic">y</em> axes as well.</div>
+<div class="figure" id="f9"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f9?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=9" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 9. </span>
+<graphic highres="yes" lowres="yes" file="9"/>
+<figure-caption>
+<div class="aip-paragraph">90 MHz tone burst with <span class="formula"><em class="emphitalic">f</em>/<em class="emphitalic">f</em><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">ce</span></sub><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">ce</span></sub> = 0.56</span>, <span class="formula"><em class="emphitalic">f</em>/<em class="emphitalic">f</em><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">pe</span></sub><em class="emphitalic">f</em><sub class="emphinferior"><span class="emphroman">pe</span></sub> = 0.017</span>. The launch antenna is located at <em class="emphitalic">z</em> = 0. <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub> is given in arbitrary units. By following a wave crest as a function of time, the phase velocity of the wave can be measured.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f9">View first occurrence of Fig. 9 in article.</a></div></div><div class="figure" id="f10"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f10?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=10" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 10. </span><graphic highres="yes" lowres="yes" file="10"/><figure-caption><div class="aip-paragraph">Diagram of the measured vector magnetic field in the <em class="emphitalic">x</em>–<em class="emphitalic">z</em> plane at two times which are ½ period apart; <em class="emphitalic">f</em> = 90 MHz. The arrows on the far side (closest to the antenna) rotate in a counterclockwise direction about <em class="emphitalic">B</em><sub class="emphinferior">0<em class="emphitalic">z</em></sub>. The total rotation is three-dimensional, which can be seen in the accompanying movie (enhanced online) (Ref. <span class="citeref_collection"><a class="citeref" href="#c21" rel="c21" name="citeref_c21">21</a></span>). <span id="mm1" class="media-link-span">[URL: <a class="media-link" href="http://dx.doi.org.libproxy1.nus.edu.sg/10.1119/1.3591341.1">http://dx.doi.org.libproxy1.nus.edu.sg/10.1119/1.3591341.1</a> ]</span></div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f10">View first occurrence of Fig. 10 in article.</a></div></div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s7"><h1>COMPARISON OF EXPERIMENT TO THEORY</h1>
+
+<div class="aip-paragraph">An excellent way to insure that the waves are whistlers is to measure the dispersion relation, the dependence of propagation speed on frequency. This measurement is an integral part of the educational component of this lab activity. The wave frequency was varied (at a constant plasma density and magnetic field) and a series of plots similar to Fig. <span class="figref_collection"><a class="figref" href="#f8" rel="f8" name="figref_f8">8</a></span> were generated. The wavenumber on a line along the background field passing through the center of the antenna (<span class="formula"><em class="emphitalic">θ</em> = 0</span>) was measured, and the resulting dispersion is plotted in Fig. <span class="figref_collection"><a class="figref" href="#f11" rel="f11" name="figref_f11">11</a></span>. There are no data at small parallel wavenumbers because the wavelength approaches or exceeds the machine length. Waves with large wavenumbers (<span class="formula"><em class="emphitalic">k</em><sub class="emphinferior">∥</sub>&gt;0.6<span class="emphroman">cm</span><sup class="emphsuperior">-1</sup></span>) are heavily damped.</div>
+<div class="figure" id="f11"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f11?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=11" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 11. </span><graphic highres="yes" lowres="yes" file="11"/><figure-caption><div class="aip-paragraph">Theoretical dispersion relation and experimental data for parallel propagation. The uncertainty in <span class="formula"><em class="emphitalic">ω</em></span> comes from the finite length of the tone burst, <span class="formula">Δ<em class="emphitalic">f</em>Δ<em class="emphitalic">T</em> ≈ 1</span>.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f11">View first occurrence of Fig. 11 in article.</a></div></div>
+<div class="aip-paragraph">We next examined three cases of whistler wave propagation. The wave fronts, such as those in Fig. <span class="figref_collection"><a class="figref" href="#f9" rel="f9" name="figref_f9">9</a></span>, are due to a superposition of waves with different <em class="emphitalic">k</em> vectors at a fixed launch frequency. The parallel and perpendicular wavenumbers for the three cases are shown in Fig. <span class="figref_collection"><a class="figref" href="#f7" rel="f7" name="figref_f7">7</a></span>. To compare the measurement to theory, we assume that the antenna is a point source for whistler waves (the antenna is much smaller than a parallel wavelength). For fixed ω, we find all the possible <strong class="emphbold">k</strong> vectors from Appleton’s equation. We then draw the superposition of plane waves having the appropriate <span class="formula">|<strong class="emphbold">k</strong>|</span> and traveling at the correct angle θ with respect to the magnetic field. For light, the dispersion relation is <span class="formula"><em class="emphitalic">ω</em>/<em class="emphitalic">ω</em><em class="emphitalic">k</em><em class="emphitalic">k</em> = <em class="emphitalic">c</em></span>, and the propagation is isotropic in vacuum. Figure <span class="figref_collection"><a class="figref" href="#f12" rel="f12" name="figref_f12">12</a></span> illustrates the process of summing light waves propagating at all angles, showing the result of adding progressively more waves to the picture. The addition of 100 waves with the same phase velocity but at different propagation angles approximates a spherical wave.</div>
+<div class="figure" id="f12"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f12?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=12" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 12. </span><graphic highres="yes" lowres="yes" file="12"/><figure-caption><div class="aip-paragraph">Wave summation for isotropic wave propagation, such as for light in a vacuum. The sequence of figures illustrates the process of summing up progressively more plane waves propagating outward from a source at the left, with the result being circular phase fronts. The figures are labeled by the number of waves that are summed. For one wave, a single plane wave <span class="formula"><em class="emphitalic">θ</em> = 0</span> comes from the virtual source at the left, and propagates to the right; Two plane waves propagating at <span class="formula"><em class="emphitalic">θ</em> = ±45<sup class="emphsuperior">∘</sup></span>, three waves (equivalent to the sum of one and two waves); five waves (equivalent to the sum of three waves and <span class="formula"><em class="emphitalic">θ</em> = ±90<sup class="emphsuperior">∘</sup></span>); the 10 and 100 wave summations are at equispaced angles. The summation of 100 plane waves results in an approximately circular wavefront propagating outward in all directions from a virtual source.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f12">View first occurrence of Fig. 12 in article.</a></div></div>
+<div class="aip-paragraph">The index of refraction for whistler waves μ depends on the angle for fixed ω, <em class="emphitalic">B</em>, and <em class="emphitalic">n</em>, as given in Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span>. This dependence means that when we compute the sum to generate a simulation of the whistler waves (analogous to Fig. <span class="figref_collection"><a class="figref" href="#f12" rel="f12" name="figref_f12">12</a></span>), the wavenumber at every propagation angle is different, and the waves do not sum to give a sphere. An equivalent statement is that the waves’ velocities depend on their angles of propagation. The sum for the three sets of experimental conditions that were studied is compared to the measurement in Fig. <span class="figref_collection"><a class="figref" href="#f13" rel="f13" name="figref_f13">13</a></span>. One hundred plane waves, each having its angle-dependent wavenumber computed by Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span>, were superposed. The experiment and the computation matched well despite the assumptions we made.</div>
+<div class="figure" id="f13"><a href="/cmlink/scitation.journals.AJPIAS.79.9.894.1.FIGURE_f13?figurecutoff=2007&amp;issueYear=2011" class="launchMedia"><img src="/FEWebservices/ImagesWebservice?id=AJPIAS000079000009000894000001&amp;type=thumbnail&amp;fid=13" alt="Figure" class="figimg"/></a><div class="caption"><span class="figname">Fig 13. </span><graphic highres="yes" lowres="yes" file="13"/><figure-caption><div class="aip-paragraph">Measured data (top row) and theoretical comparison (bottom row) of <em class="emphitalic">B</em><sub class="emphinferior"><em class="emphitalic">y</em></sub> for whistler waves for the three experimental conditions described in the text. In all cases, the structures shown in the screenshots propagate to the right with no significant modification of their shapes. The pictures were computed by superposing 200 plane waves, each propagating at a different angle and each with the appropriate phase velocity computed from Eq. <span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span>. The scales in <em class="emphitalic">z</em> (abscissa) and <em class="emphitalic">x</em> (ordinate) are different, and the distances are in centimeters.</div>
+</figure-caption>
+</div><div class="first_occurence_link"><a href="#figref_f13">View first occurrence of Fig. 13 in article.</a></div></div>
+<div class="aip-paragraph">In the simulation, the plasma density and background magnetic field were constant over the plane. Langmuir probe measurements, as well as measurement of the background magnetic field with a Hall probe, showed this assumption to be reasonable. The measurement of the electron temperature by a Langmuir probe at the time that the wave was launched, <span class="formula"><em class="emphitalic">T</em><sub class="emphinferior"><em class="emphitalic">e</em></sub>&lt;0.5</span> eV, justified the assumption of a cold plasma in Eq. 
+<span class="eqref_collection">(<a class="eqref" href="#d1" rel="d1" name="eqref_d1">1</a>)</span>.</div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s8"><h1>WHISTLER WAVE EXPERIMENTS AND LEARNING THE PROCESS OF SCIENCE</h1>
+
+<div class="aip-paragraph">LAPTAG is a unique opportunity for students to participate in STEM (Science, Technology, Engineering, and Math) education and the process of science. By using plasma physics as an educational “hook,” students are engaged in a series of experiments, lectures, presentations, and group discussions. Learning happens during initial discussions, topics are “relearned” as the experiments are done, and probably the greatest and most exciting learning occurs in planning for presentations. The students have presented their results at AAPT (Ref. <span class="citeref_collection"><a class="citeref" href="#c14" rel="c14" name="citeref_c14">14</a></span>) and APS (Ref. <span class="citeref_collection"><a class="citeref" href="#c15" rel="c15" name="citeref_c15">15</a></span>) meetings and participated in a Physics Department Colloquium at Cal-State Los Angeles. Because the students are the actual presenters, they develop a much deeper understanding of the concepts.</div>
+<div class="aip-paragraph">Students experience the process of science first hand. Students are involved in the planning of all experiments. We first discuss the limitations of our machine, the need for any necessary purchases or fabrications. What type of antenna is necessary to launch the wave and how does it work? Amplifiers for the antenna and the receiver have to be constructed. The students learned the elements of their operation (they would not be able to design them) and soldered the components together. The <em class="emphitalic">B</em>-dot probe was designed and entirely constructed by the students. Experimental results need to be extracted from noise. Students learned about data filtering and smoothing as they looked at the data for meaning. The data analysis programs were written by students. Learning from matching theory with experimental results gave students experience in the practice of science.</div>
+<div class="aip-paragraph">The outcome is that students are better prepared to enter the STEM pipeline by gaining a deeper understanding of the scientific method, and in this case, the concept of the index of refraction and its effects on wave propagation. For example, students comprehend such advanced topics as dispersion, <em class="emphitalic">k</em>-space, plasma properties, and wave group and phase velocities. This engagement supports efforts to improve STEM career choices by exposing high school students to challenging and interesting experiences in preparation for advanced study.</div>
+<div class="aip-paragraph">Bloom<span class="citeref_collection"><sup><a class="citeref" href="#c16" rel="c16" name="citeref_c16">16</a></sup></span> identified a three state model for talent development. First, a teacher helps a student develop a love for mathematics and/or science. Another teacher provides instruction on the rules, content, and skills that allows students to access the field. At this point, students begin to identify themselves as novice scientists or mathematicians. Lastly, students are presented insider knowledge associated with a given field. This process is the LAPTAG model.</div>
+<div class="aip-paragraph">Brody<span class="citeref_collection"><sup><a class="citeref" href="#c17" rel="c17" name="citeref_c17">17</a></sup></span> has provided expected short-term assessment outcomes for programs designed to improve the STEM career pipeline. He suggests evaluating the following:
+<div class="aip_itemlist"><ul class="bullet-list">
+<li>
+<div class="aip-paragraph">Learning of content: At some level, knowledge of scientific principles, enhancement of technical or problem solving skills, or other preparation for more advanced work should be expected. Clear evidence for such learning is provided by the students’ participation in poster and paper submissions.<span class="citeref_collection"><sup><a class="citeref" href="#c14" rel="c14 c15 c18" name="citeref_c14">14</a>,<a class="citeref" href="#c15" rel="c14 c15 c18" name="citeref_c15">15</a>,<a class="citeref" href="#c18" rel="c14 c15 c18" name="citeref_c18">18</a></sup></span> These efforts develop and display improved knowledge and preparation for more advanced work.</div>
+</li>
+<li>
+<div class="aip-paragraph">Enhanced positive attitudes—even excitement—toward the discipline: Positive attitudes toward STEM fields, and physics in particular, are evidenced by student participation over the years. Some students have been in LAPTAG for three years or more.</div>
+</li>
+<li>
+<div class="aip-paragraph">Increased self-confidence in one’s ability to excel in this field: We often see students’ self-confidence improve as they master complex concepts and data analysis techniques. Students, who have been very shy at first, have demonstrated pride and confidence in later presentations.</div>
+</li>
+<li>
+<div class="aip-paragraph">Increased knowledge of the value of mathematics and science in the workplace and increased awareness of mathematics and science careers.</div>
+</li>
+<li>
+<div class="aip-paragraph">Removal of any barriers to possible advancement in mathematics and science that existed prior to the intervention.</div>
+</li>
+</ul></div></div>
+<div class="aip-paragraph">Some students come from public schools where access to higher mathematics and science programs is limited. Even students coming from schools that do provide advanced classes find themselves challenged beyond the existing curriculum because as a working research lab, LAPTAG takes them out of the artificialness of science in the classroom and gives them the opportunity of doing science.</div>
+<div class="aip-paragraph">Success in STEM fields requires a commitment of time and effort. What causes LAPTAG students to commit their time and effort? Although a portion of a student’s commitment to STEM studies comes from how well a student performs, there is also a component of commitment developed by how well students are able to match their image of the discipline with their own perceived self-image. Hannover and Kessels<span class="citeref_collection"><sup><a class="citeref" href="#c19" rel="c19" name="citeref_c19">19</a></sup></span> provide evidence that students rate science-interested students lower than others in physical and social attractiveness, social competence, and integration. Science-interested students are also rated higher in intelligence, motivation, arrogance, and self-centeredness. It is clear that the prototype of students who like science is less favorably viewed by peers than those who do not like science. LAPTAG shatters many myths about science as a discipline and scientists as people.</div>
+<div class="aip-paragraph">LAPTAG also prepares students for STEM disciplines by introducing professional norms to prepare students for the standards of professional practice.<span class="citeref_collection"><sup><a class="citeref" href="#c20" rel="c20" name="citeref_c20">20</a></sup></span> This preparation gives the students the confidence and competency to fully participate in undergraduate classes and the vision of the “end game” to keep them motivated to persevere in difficult times.</div>
+<div class="aip-paragraph">LAPTAG’s students are at all levels of intellectual development. Some have mastered the concepts, while recent members have a more superficial understanding. By using this study of the index of refraction, students at all levels learned, or were exposed to, the process of science, experimental design, the properties of waves, applications of mathematics, and instrumentation and computers.</div>
+</div></div>
+<div class="sectionWrapper"><div class="section" id="s9"><h1>SUMMARY</h1>
+
+<div class="aip-paragraph">The plasma lab has provided content knowledge and understanding of the index of refraction and the process of science using whistler waves. Other experiments are planned, but in all our efforts, students are exposed to strong content knowledge in mathematics and science based on academic instruction and hands-on demonstration, appreciation for the utility of STEM subjects in the workplace, role models working in STEM fields, and peers who share interests in STEM areas of study.</div>
+</div></div>
+</div>
+                                        
+                                        					
+															
+							    		
+		    				          	 
+      
+                                                                             
+                           
+                                
+                <div id="ack" class="ack">
+                                         
+                    
+<h1>ACKNOWLEDGMENTS</h1>
+<div class="aip-paragraph">The authors would like to thank Z. Lucky, M. Drandell, and M. Nakamoto (all at UCLA) for their technical assistance. They also acknowledge the help of A. Levy (Santa Monica Community College), A. Martinez (New Roads School), and E. Hobel (Buckley School). This work was done at the Basic Plasma Science Facility at the University of California, Los Angeles. The Basic Plasma Science Facility is funded by the Office of Fusion Science at the Department of Energy and the National Science Foundation.</div>
+  
+                </div>
+                   
+	  		          		
+		          			          						
+					                    
+                                    
+                                        
+                    	            </div>
+                
+                
+                												
+				<div id="refsectiontabs" "class="flora">
+					<ul>
+						<li>
+							<a href="#fulltext-references">
+							<span>References  
+        
+                  (21)
+            
+    							</span>
+							</a>
+						</li>
+												<li id="fulltext-tab">
+	                        <a href="#fulltext-related">
+	                        <span class="relatedtablabel">Related Articles</span>
+	                        </a>						
+						</li>
+					</ul>
+		            <div id="fulltext-references" class="searchabledom">            
+		             	 
+
+									
+                        
+                            <!-- start reference section -->
+                                                                                    <div style="display:none;">
+                            <form id="addToMySciFormREF" action="http://scitation.aip.org.libproxy1.nus.edu.sg/myscitation/addToMyArticles-submit.do" method="get" target="_blank" name="addToMySciREF">
+                                <div style="display:none;">
+                                <input type="hidden" name="source" value="scitation" />
+                                <input type="hidden" name="downloadcitation" value=" Go " />
+                                <input type="hidden" name="source" value="scitation" />
+                                <input type="hidden" name="fn" value="mysci"/>
+                                </div>
+                                <div id="adddomtomysciREF">
+                                </div>
+                            </form>
+                        </div> 
+                                                    <div class="citings_action_bar">   
+                                                                                                                                                                                                                                    <div class="popupinanewwindowlink"><a href="?view=refs" title="View in Separate Window/Tab" class="refIcon popuplink"> View in Separate Window/Tab <img src="/img/icons/load_new_win_icon_small.gif" alt="pop up window icon" style="border:none; align:right;" /></a></div>
+                                                                                                		<span class="ref-actions">
+	                                	Selected:
+	    	                            	<a href="#" onclick="return constructDLbox('Download','articlereferenceslist');">Export Citations</a> |
+    		                            	<a href="#" onclick="return addArticle('articlereferenceslist','adddomtomysciREF','addToMySciFormREF');">Add to MyArticles</a>
+        		                        	</span>
+                                                            </div>
+                                                                                     
+
+                   <div class="articlereferenceslist">
+                   <ol>
+                                            <li id="c1">R. Helliwell, <i>Whistlers and Related Ionospheric Phenomena</i> (Stanford University, Stanford, CA, 1965).
+                            | <a href="#citeref_c1" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c2">D. D. Sentman, &ldquo;Preliminary results from the Sprites 94 aircraft campaign,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=GPRLAJ&to_v=22&to_p=1205&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1029%2F95GL00583">Geophys. Res. Lett. <b>22</b>, 1209&ndash;1212,  (1995)</a>.
+                            | <a href="#citeref_c2" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c3">J. Fuchs, &ldquo;Ionospheric electron temperatures and the Hals-Stomer echo,&rdquo; National Research Council Pub. 581, <b>105</b>, 11 (1938).
+                            | <a href="#citeref_c3" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c4">W. H. Preece, &ldquo;Earth currents,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=NATUAS&to_v=49&to_p=554&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1038%2F049554b0">Nature (London) <b>49</b>, 554 (1894)</a>.
+                            | <a href="#citeref_c4" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c5">H. Barkhausen, &ldquo;Pfeiftone aus dere Erde,&rdquo; Phys. Z. <b>20</b>, 402 (1919).
+                            | <a href="#citeref_c5" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c6">T. L. Eckersley, &ldquo;Musical atmospherics,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=NATUAS&to_v=135&to_p=104&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1038%2F135104a0">Nature <b>135</b>, 104&ndash;105 (1935)</a>. <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=NATUAS&to_v=135&to_p=104&to_loc=ISI&to_url=http%3A%2F%2Fgateway.isiknowledge.com%2Fgateway%2FGateway.cgi%3FGWVersion%3D2%26SrcAuth%3DAIP%26SrcApp%3DAIP%26DestLinkType%3DFullRecord%26KeyUT%3D000189300900065%26DestApp%3DWOS_CPL%26SrcURL%3Dhttp%253A%252F%252Flink.aip.org%252Flink%252F%253FAJP%252F79%252F894%252F1%26SrcImageURL%3Dhttp%253A%252F%252Fimages.isiknowledge.com%252FWoK3%252FImages%252FLinks%252FAIP_Ret.gif">[ISI]</a>
+                            | <a href="#citeref_c6" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c7">E. V. Appleton, &ldquo;Geophysical influences on the transmission of wireless waves,&rdquo; Proc. Phys. Soc. <b>37</b>, 16D&ndash;22D (1925)<br> D. R. Hartree, &ldquo;Propagation of electromagnetic waves in a refracting medium in a magnetic field,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=PCPSA4&to_v=27&to_p=143&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1017%2FS0305004100009440">Proc. Cambridge Philos. Soc. <b>27</b>, 143&ndash;162 (1931)</a>.
+                            | <a href="#citeref_c7" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c8">R. L. Stenzel, &ldquo;Whistler wave propagation in a large magnetoplasma,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=PHFLE6&to_v=19&to_p=857&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1063%2F1.861551">Phys. Fluids <b>19</b>, 857&ndash;864 (1976)</a>.
+                            | <a href="#citeref_c8" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c9"><input type="checkbox" name="SelectCheck" value="PFLDAS000019000006000865000001" >R. L. Stenzel, &ldquo;Filamentation instability of a large amplitude whistler wave,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=PFLDAS&to_v=19&to_p=865&to_loc=AIP&to_url=http%3A%2F%2Flink.aip.org%2Flink%2F%3FPFL%2F19%2F865%2F1">Phys. Fluids <b>19</b>, 865&ndash;871 (1976)<span class='RRECvips'>PFLDAS000019000006000865000001</span></a>;, H. Sugai, K. Ido, H. Niki, S. Takeda, and K. Mima, &ldquo;Dispersion and attenuation of whistler waves in a finite plasma,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=PPMJAJ&to_v=44&to_p=1953&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1143%2FJPSJ.44.1953">J. Phys. Soc. Jpn. <b>44</b>, 1953&ndash;1959 (1978)</a>.
+                            | <a href="#citeref_c9" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c10">The LAPTAG website is at &lt;coke.physics.ucla.edu/laptag&gt;.
+                            | <a href="#citeref_c10" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c11">M. Lieberman and A. Lichtenberg, <i>Principles of Plasma Discharges and Material Processing</i> (Wiley, New York, 1994), Chap. 12.
+                            | <a href="#citeref_c11" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c12">J. A. Bittencourt, <i>Fundamentals of Plasma Physics</i>, 3rd ed. (FAPESP, Brazil, 1995).
+                            | <a href="#citeref_c12" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c13">R. Fisher and R. Gould, &ldquo;Resonance cones in the field pattern of a short antenna in an anisotropic plasma,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=PRLTAO&to_v=22&to_p=1093&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1103%2FPhysRevLett.22.1093">Phys. Rev. Lett. <b>22</b>, 1093&ndash;1095 (1969)</a>.
+                            | <a href="#citeref_c13" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c14">J. Wise, R. Hwang, M. Praglin, A. Lodge, R. Binaz, J. Novak, R. Baker, and W. Gekelman, &ldquo;Measurement of plasma parameters in the LAPTAG plasma device,&rdquo; <i>AAPT Southern California Section Meeting</i>, May 2, 2009, contributed talk;, J. Wise, A. Lee, G. Rosales, R. Wong, R. Baker, and W. Gekelman, &ldquo;Measurement of edge plasma rotation,&rdquo; <i>AAPT Southern California Section Meeting</i>, May 2, 2009, contributed talk.
+                            | <a href="#citeref_c14" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c15">R. Hwang, C. Eghtebas, A. Lee, W. Gekelman, P. Pribyl, J. Shin, J. Wise, R. Baker, and A. Martinez, &ldquo;Experimental measurement and comparison to theory of whistler waves at the LAPTAG high school plasma laboratory,&rdquo; Bull. Amer. Phys. Soc. <b>55</b>(15), 169 (2010)<br> A. Lee, W. Gekelman, P. Pribyl, C. Eghtebas, R. Hwang, J. Wise, R. Baker, and A. Strelsov, &ldquo;Experiments on the ducting of Whistler waves at the LAPTAG high school plasma laboratory,&rdquo;  <i>ibid.</i>  <b>55</b>(15), 169 (2010)<br> J. Wise, W. Gekelman, and R. Baker, &ldquo;Using a plasma physics experiment to expand student understanding of the index of refraction,&rdquo;  <i>ibid.</i>  <b>55</b>(1), 66 (2010)<br> C. Eghtbas, R. Hwang, J. Shin, W. Gekelman, P. Pribyl, J. Wise, R. Baker, and A. Lee, &ldquo;Experimental measurement of Whistler waves at the LAPTAG high school plasma laboratory,&rdquo;  <i>ibid.</i>  <b>55</b>(1), 65 (2010)<br> A. Lee, Y. Wang, C. Eghtbas, W. Gekelman, P. Pribyl, J. Wise, and R. Baker, &ldquo;Comparison of measured Whistler wave energy flow to theory in the LAPTAG plasma device,&rdquo;  <i>ibid.</i>  <b>55</b>(1), 66 (2010).
+                            | <a href="#citeref_c15" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c16"><i>Developing Talent in Young People</i>, edited by B. S. Bloom (Ballantine Books, New York, 1985).
+                            | <a href="#citeref_c16" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c17">L. Brody, &ldquo;Measuring the effectiveness of STEM talent initiatives for middle and high school students,&rdquo; <i>Paper presented at 2006 September meeting of the National Academies Center for Education</i>; &lt;www7.nationalacademies.org/cfe/Linda%20Brody%20Think%20Piece.pdf&gt;.
+                            | <a href="#citeref_c17" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c18">A. Lee, R. Hwang, A. Cambonchi, R. Binaz, M. Praglin, J. Wise, and W. Gekelman, &ldquo;The LAPTAG plasma physics laboratory,&rdquo; <i>talk at the Southern California Physics Teachers Meeting</i>, Occidental College (2009)<br> W. Layton, W. Gekelman, J. Wise, N. Rodriguez, S. Cooperman, R. Griffen, J. Altonji, F. Carrington, B. Coutts, and K. Barker, &ldquo;Encouraging high school students to consider physics related careers,&rdquo; Bull. Amer. Phys. Soc. <b>46</b>(8), 147 (2001)<br> R. Baker, J. Altounji, R. Buck, C. Spahn, W. Gekelman, and P. Pribyl, &ldquo;Construction of a high school plasma laboratory,&rdquo;  <i>ibid.</i>  <b>46</b>(8), 147 (2001)<br> R. Baker, J. Wise, M. Buck, R. Buck, and W. Gekelman, &ldquo;Characteristics of the LAPTAG high school plasma,&rdquo;  <i>ibid.</i>  <b>46</b>(8), 147 (2001)<br> R. Buck, J. Wise, N. Gibson, M. Buck, W. Gekelman, E. Wetzel, C. Wetzel, and C. Moynihan, &ldquo;Ion acoustic waves, A high school plasma experiment,&rdquo;  <i>ibid.</i>  <b>46</b>(8), 147 (2001)<br> J. Wise, M. Buck, W. Gekelman, R. Buck, C. Spahn, C. Walker, and W. Layton, &ldquo;Using plasma physics to enhance the high school physics curriculum,&rdquo;  <i>ibid.</i>  <b>46</b>(8), 147 (2001).
+                            | <a href="#citeref_c18" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c19">B. Hannover and U. Kessels, &ldquo;Self-to-prototype matching as a strategy for making academic choices. Why high school students do not like math and science,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=LEAIE9&to_v=14&to_p=51&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1016%2Fj.learninstruc.2003.10.002">Learn. Instr. <b>14</b>, 51&ndash;67 (2004)</a>.
+                            | <a href="#citeref_c19" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c20">Y. Ben-David Kolikant and S. Pollack, &ldquo;Establishing computer science professional norms among high school students,&rdquo; <a href="http://link.aip.org.libproxy1.nus.edu.sg/link/?&l_creator=getabs-normal1&l_dir=FWD&l_rel=CITES&from_key=AJPIAS000079000009000894000001&from_keyType=CVIPS&from_loc=AIP&to_j=ZZZZZZ&to_v=14&to_p=21&to_loc=DOI&to_url=http%3A%2F%2Fdx.doi.org%2F10.1076%2Fcsed.14.1.21.23497">Comput. Sci. Educ. <b>14</b>(1), 21&ndash;35 (2004)</a>.
+                            | <a href="#citeref_c20" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                            <li id="c21">Movie of the vector magnetic field (drawn as white arrows) of a whistler wave launched from the loop antenna (described in the text) on the right side of the data plane. The movie frames are 0.4 ns apart. The data plane is the same as that in Fig. 10. The size of the data plane is (<img border="0" src="http://scitation.aip.org.libproxy1.nus.edu.sg/stockgif3/Dgr.gif" alt="Delta" align="bottom"/><i>x</i>,<img border="0" src="http://scitation.aip.org.libproxy1.nus.edu.sg/stockgif3/Dgr.gif" alt="Delta" align="bottom"/><i>z</i>)=(17.2cm,60cm).
+                            | <a href="#citeref_c21" class="firscit"><img src="/img/icons/firstcitation.png" alt="First Citation" /> first citation in article</a>
+                        </li>
+                                       </ol>    
+                   </div>  
+
+            
+            
+        
+    		            </div>
+		            		            <div id="fulltext-related">
+					    <div class="relatedarticles_listing"></div>
+		            </div>
+		        </div>
+ 		  </div>     	
+</div>
+      	
+      
+                                                              
+<div id="fulltext_footer">
+            &copy;                        
+                                               2011
+                                                        <em>American Association of Physics Teachers</em>
+                </div>
+
+		<div id="darken"></div>
+		<div id="fulltextwrapper">
+		    <div class="exitbutton"><a href="#" onclick="return closeFulltext();"><img src="/img/fulltext/closeimg.png" alt="close" style="border:none;" /></a></div>
+		    <div id="fulltextwrapper_content"></div>
+		</div> 
+				
+		 		<script type="text/javascript">
+		//<![CDATA[
+		flowplayer("a.flowPlayer", "/modules/flowplayer-3.1.5.swf");
+		//]]>
+		</script>
+		
+		                     
+      
+          
+                                        
+        
+                                
+                                
+        
+        
+                
+        <div id="aqsTemplate" style="display:none;">
+                                            <h3>Find articles by <strong>AUTHORNAME</strong></h3>
+                <div class="aqsleft"><a id="mlsearchUrlDefault" href="/search?sortby=newestdate&q=AUTHORURLTOKEN&searchzone=2&searchtype=searchin&faceted=faceted&key=AJPIAS&possible1=AUTHORURLTOKEN&possible1zone=author&alias=&displayid=AAPT"><img src="/img/aqs/author_jr.gif" style="height:15px" alt ="This Publication" />This Publication</a></div>
+                
+                   
+        
+        
+                                
+        
+        <div class="aqsleft">
+            <a href="http://scitation.aip.org.libproxy1.nus.edu.sg/vsearch/servlet/VerityServlet?KEY=FREESR&possible1=AUTHORURLTOKEN&possible1zone=author&maxdisp=25&smode=strresults"><img src="/img/aqs/author_sc.gif" style="height:15px" alt ="Scitation" />Scitation</a>
+        </div>
+        
+                           
+        
+        
+                                
+        
+        <div class="aqsleft">
+            <a href="http://scitation.aip.org.libproxy1.nus.edu.sg/vsearch/servlet/VerityServlet?KEY=SPIN&possible1=AUTHORURLTOKEN&possible1zone=author&maxdisp=25&smode=strresults&aqs=true"><img src="/img/aqs/author_sp.gif" style="height:15px" alt ="SPIN" />SPIN</a>
+        </div>
+        
+                           
+        
+        
+                                
+        
+        <div class="aqsleft">
+            <a href="http://www.scitopia.org/scitopia/?expression=AUTHORURLTOKEN"><img src="/img/aqs/author_st.gif" style="height:15px" alt ="Scitopia" />Scitopia</a>
+        </div>
+
+        
+                           
+        
+        
+                                
+        
+        <div class="aqsleft">
+            <a href="http://scholar.google.com/scholar?q=AUTHORURLTOKEN"><img src="/img/aqs/author_gs.gif" style="height:15px" alt ="Google Scholar" />Google Scholar</a>
+        </div>  
+
+        
+                           
+        
+        
+                                
+        
+        <div class="aqsleft">
+            <a href="http://www.ncbi.nlm.nih.gov.libproxy1.nus.edu.sg/sites/entrez?dopt=DocSum&cmd=Search&db=pubmed&term=AUTHORURLTOKEN"><img src="/img/aqs/author_pm.gif" style="height:15px" alt ="PubMed" />PubMed</a>
+        </div>
+
+        
+                         
+                <br class="clearit" />
+                    </div>
+      
+                      
+</body>
+</html>   
+   
+     
+                                              
+            
+      
+      

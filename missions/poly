@@ -1,0 +1,48 @@
+(define (make-list n)
+  (if (= n 0)
+      '(0)
+      (append '(0) (make-list (- n 1)))))
+
+(define (insert n val lst)
+  (if (= n 0)
+      (append (list val)
+              (cdr lst))
+      (append (list (car lst))
+              (insert (- n 1) val (cdr lst)))))
+
+(define (nth n lst)
+  (if (= n 0)
+      (car lst)
+      (nth (- n 1) (cdr lst))))
+
+(define (make-polynomial c d)
+  (insert d c (make-list d)))
+
+(define (get-coefficient p d)
+  (nth d p))
+
+(define (add-polynomials p1 p2)
+  (if (> (length p1) (length p2))
+      (add-polynomials p2 p1)
+      (if (null? p1)
+          p2
+          (cons (+ (car p1) (car p2))
+                (add-polynomials (cdr p1) (cdr p2))))))
+
+(define (scale-polynomial p s)
+  (if (null? p)
+      p
+      (cons (* s (car p))
+            (scale-polynomial (cdr p) s))))
+
+(define (negate-polynomial p)
+  (if (null? p)
+      p
+      (cons (- (car p))
+            (negate-polynomial (cdr p)))))
+
+(define (operate-on-polynomial f p)
+  (if (null? p)
+      p
+      (cons (f (car p))
+            (operate-on-polynomial f (cdr p)))))

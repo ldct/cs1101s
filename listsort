@@ -1,0 +1,92 @@
+;a list is a function that returns the ith element or 'end if out of range
+(define (list1 i)
+  (cond ((= i 0) 1)
+        ((= i 1) 3)
+        ((= i 2) 2)
+        ((= i 3) 4)
+        ((= i 4) 5)
+        ((= i 5) 3)
+        (else 'end)))
+
+(define (display-list lst)
+  (define (print-from n)
+    (if (eq? (lst n) 'end)
+        (display ";\n")
+        (begin (display (lst n))
+               (display " ")
+               (print-from (+ n 1)))))
+  (print-from 0))
+
+(display-list list1)
+
+;remove first n elements
+(define (tail n lst)
+  (lambda (i) (lst (+ i n))))
+;first n-1 elements
+(define (head n lst)
+  (lambda (i) (if (>= i n) 'end (lst i))))
+;some familiar functions
+(define (car lst) (lst 0))
+(define (cdr lst) (tail 1 lst))
+(define (empty? lst) (eq? (lst 0) 'end))
+(define (length lst)
+  (if (empty? lst) 0
+      (+ 1 (length (cdr lst)))))
+;append is non-recursive
+(define (append lst1 lst2)
+  (lambda (i)
+    (if (< i (length lst1))
+        (lst1 i)
+        (lst2 (- i (length lst1))))))
+;neither is map
+(define (map f l)
+  (lambda (i)
+    (if (eq? (l i) 'end)
+        'end
+        (f (l i)))))
+
+(display-list (map (lambda (x) (+ 1 x)) list1))
+
+;list with just 1 element
+(define (singleton-list e)
+  (lambda (i)
+    (if (= i 0) e 'end)))
+
+;N
+(define (N i) i)
+(display-list (head 4 N))
+
+;2N
+(define 2N (map (lambda (x) (* 2 x)) N))
+(display-list (head 4 2N))
+
+;fact
+(define (fact i)
+  (if (= i 0) 1
+      (* i (fact (- i 1)))))
+(display-list (head 5 fact))
+
+;filter could be written using car cdr append but I like this more
+(define (squish l)
+  (cond ((empty? l) l)
+        ((eq? (l 0) '_) (squish (cdr l)))
+        (else (append (singleton-list (l 0))
+                      (squish (cdr l))))))
+(define (filter_ p l)
+  (lambda (i)
+    (cond ((eq? (l i) 'end) 'end)
+          ((p (l i)) (l i))
+          (else '_))))
+(define (filter p l)
+  (squish (filter_ p l)))
+
+;qsort
+(define (qsort lst)
+  (if (empty? lst)
+      lst
+      (let* ((m (lst 0))
+             (a (filter (lambda (x) (< x m)) (cdr lst)))
+             (b (filter (lambda (x) (>= x m)) (cdr lst))))
+        (append (append (qsort a) (singleton-list m)) (qsort b)))))
+
+(display-list (qsort list1))

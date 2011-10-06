@@ -1,0 +1,73 @@
+(define (calc-integral f a b n)
+  (define h (/ (- b a) n))
+  (define (sum i)
+    (define y (f (+ a (* i h))))
+    (cond ((= i n) y)
+          ((= i 0) (+ y (sum (+ i 1))))
+          ((even? i) (+ (* 2 y) (sum (+ i 1))))
+          (else (+ (* 4 y) (sum (+ i 1))))))
+  (* h 1/3 (sum 0)))
+
+(calc-integral (lambda (x) (* x x x x x x x x x)) 0 1 20000)
+
+
+'iterative-sum
+
+(define (sum term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (+ a 1) (+ result (term a)))))
+  (iter a 0))
+
+(sum (lambda (x) x) 1 (lambda (x) (+ 1 x)) 4)
+
+(define (fold op f n)
+  (if (= n 0)
+      (f 0)
+      (op (f n)
+          (fold op f (- n 1)))))
+
+(define (sq x) (* x x))
+
+'gx-fold
+
+(define (g x)
+  (fold * 
+        (lambda (x) (- x (sq (+ x 1))))
+        x))
+
+(g 3)
+
+'accumulate-sum
+
+(define (accumulate op id term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (+ a 1) (op result (term a)))))
+  (iter a id))
+
+(define (accumulate op id term a next b)
+  (if (> a b)
+      id
+      (op (term a)
+         (sum term (next a) next b))))
+
+(define (sum term a next b) (accumulate + 0 term a next b))
+(sum (lambda (x) x) 1 (lambda (x) (+ 1 x)) 4)
+
+'points
+
+(define (make-point x y) (cons x y))
+(define x-point car)
+(define y-point cdr)
+
+(define (print-point p)
+  (newline)
+  (display "(")
+  (display (x-point p))
+  (display ",")
+  (display (y-point p))
+  (display ")"))
+

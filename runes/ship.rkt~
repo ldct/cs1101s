@@ -1,0 +1,42 @@
+(load "runes.rkt")
+
+(define MAX_X (round-off (* 4/3 viewport-size)))
+(define MAX_Y viewport-size)
+
+(define (square z) (* z z))
+(define (ship-square z)
+  (square (+ (abs (real-part z))
+             (* 0+i (abs (imag-part z))))))
+  
+(define (gray x) (make-rgb x x x))
+
+(define n 19)
+
+(define (mandelbrot? c)
+  (define (iter count z)
+    (if (or (= count 0) (< 2 (magnitude z)))
+        count
+        (iter (- count 1) (+ (ship-square z) c))))
+    (iter 15 0))
+
+(define (map-from-screen x y)
+  (make-rectangular (- (/ x 4000.) 1.9) (- (/ y 4000.) .1)))
+
+(define (mandelbrot-colour x y)
+  (gray (/ (mandelbrot? (map-from-screen x y)) n)))
+
+(define step 1)
+
+(define (draw)    
+  (define (row-loop y)
+    (define (paint x)
+      ((draw-pixel vp) (make-posn x y) (mandelbrot-colour x y))
+      (if (< (+ x 1) MAX_X)
+          (paint (+ x step))))    
+        (paint 0)
+        
+        (if (< (+ y 1) MAX_Y)
+            (row-loop (+ y step))))
+  (row-loop 0))
+
+(draw)

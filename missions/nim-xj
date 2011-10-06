@@ -1,0 +1,2 @@
+(define (make-game-state n m)
+  (cons n m))
