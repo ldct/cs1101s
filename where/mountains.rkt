@@ -1,0 +1,2 @@
+(define (mountains)
+  (display "mountains"))

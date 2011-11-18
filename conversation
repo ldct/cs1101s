@@ -1,0 +1,40 @@
+(define (make-conversation initial-topics)
+  (let ((topics initial-topics))
+    (define (repl)
+      (map (lambda (t) (display (cadr t)) (display "\n")) 
+           topics)
+      (define msg (read-line))
+      (map (lambda (t) (if (equal? msg (car t)) ((caddr t)) (display "\n")))
+           topics)
+      (repl))
+    (define (dispatch op . args)
+      (cond ((eq? op 'show-topics)
+             topics)
+            ((eq? op 'add-topics)
+             (set! topics (append topics args)))
+            ((eq? op 'repl)
+             (repl))
+            ))
+    dispatch))
+
+(define (talk-to-inquiries)
+  (define convo (make-conversation '()))
+  (define D (list "D" 
+             "(D) Is this the only spaceport on the planet?"
+             (lambda ()
+               (display "Why yes it is. Only way in or out.\n"))))
+  (define A (list "A" 
+             "(A) Where exactly am I?" 
+             (lambda ()
+               (display "The federal spaceport of the planet of Kamino II.\n")
+               (convo 'add-topics D)
+               (convo 'add-topics C)
+               )))
+  (define C (list "C" 
+             "(C) Can I find out more about your planet? I'm new here."
+             (lambda ()
+               (display "We were settled about 200 years ago by explorers who wanted a base for further explorations out in the Galactic Rim, but after much of the Rim was lost to civil war and descended into chaos large numbers of refugees came here. If you want to know more our planetary archives are about a day's journey from here.\n")
+               (add-location! '(museum "Museum and national archives of Kamino II")))))
+  
+    (convo 'add-topics A)
+    (convo 'repl))

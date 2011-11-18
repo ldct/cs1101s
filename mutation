@@ -1,0 +1,17 @@
+(require racket/mpair)
+
+(define (last-mpair x)
+  (if (null? (mcdr x))
+      x
+      (last-mpair (mcdr x))))
+
+(define (append! x y)
+  (set-mcdr! (last-mpair x) y)
+  x)
+
+(define (make-cycle x)
+  (set-mcdr! (last-mpair x) x))
+
+(define x (mlist 'a 'b))
+(define y (mlist 'c 'd))
+(define w (append! x y))

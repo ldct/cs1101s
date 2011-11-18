@@ -1,0 +1,9 @@
+
+At room-433 : b1 says -- I take key-card 
+At room-422 : b2 says -- I take key-card 
+At room-414 : b3 says -- I take key-card 
+At room-331 : b4 says -- I take key-card 
+At room-223 : b5 says -- I take key-card 
+At room-143 : b6 says -- I take key-card 
+At room-132 : b7 says -- I take key-card 
+At room-114 : b8 says -- I take key-card 
